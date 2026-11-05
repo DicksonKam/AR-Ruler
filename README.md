@@ -144,7 +144,6 @@ Points are in screen points from the top-left of the main display, the same as a
 - **No notarized download.** Builds are ad-hoc signed, so for now you build from source.
 - **Launch at Login hasn't been switched on or off in testing.** The menu item's logic is unit tested, and it has been seen showing the off state.
 - **Multiple displays haven't been tested hands-on.** That includes "Displays have separate Spaces" and displays being connected or removed. The app uses one overlay per screen, but only a single display was available.
-- **Holding Control + Option and clicking hasn't had a complete real-world test.** Detecting the held keys and handling the clicks were each tested with real events, but not yet together in this build. Holding a single key and clicking was tried by hand on an earlier build.
 - **Shift-snapping and calibration accuracy** are covered by unit tests and a made-up length, but haven't been checked in real use against a real object.
 
 ## License
