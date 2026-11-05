@@ -135,6 +135,12 @@ final class RulerRenderingTests: XCTestCase {
             ("angle-tight", scene(session(CGPoint(x: 150, y: 120), CGPoint(x: 600, y: 120), extra: [CGPoint(x: 200, y: 165)]))),
             ("angle-obtuse", scene(session(CGPoint(x: 120, y: 200), CGPoint(x: 450, y: 200), extra: [CGPoint(x: 800, y: 240)]))),
             ("angle-four", scene(session(CGPoint(x: 120, y: 120), CGPoint(x: 400, y: 120), extra: [CGPoint(x: 560, y: 320), CGPoint(x: 780, y: 200)]))),
+            ("four-zigzag", scene(session(CGPoint(x: 150, y: 330), CGPoint(x: 420, y: 90), extra: [CGPoint(x: 560, y: 340), CGPoint(x: 800, y: 110)]))),
+            ("four-tight", scene(session(CGPoint(x: 120, y: 200), CGPoint(x: 700, y: 200), extra: [CGPoint(x: 150, y: 165), CGPoint(x: 720, y: 120)]))),
+            ("four-short", scene(session(CGPoint(x: 400, y: 200), CGPoint(x: 445, y: 200), extra: [CGPoint(x: 470, y: 160), CGPoint(x: 430, y: 135)]))),
+            ("four-very-short", scene(session(CGPoint(x: 430, y: 200), CGPoint(x: 450, y: 205), extra: [CGPoint(x: 445, y: 180), CGPoint(x: 465, y: 175)]))),
+            ("four-corner", scene(session(CGPoint(x: 40, y: 395), CGPoint(x: 240, y: 395), extra: [CGPoint(x: 60, y: 300), CGPoint(x: 20, y: 150)]))),
+            ("preview-third-line", scene(session(CGPoint(x: 120, y: 120), CGPoint(x: 400, y: 120), extra: [CGPoint(x: 560, y: 320)]), pointer: CGPoint(x: 780, y: 200), modifierHeld: true)),
             ("angle-short-arms", scene(session(CGPoint(x: 420, y: 200), CGPoint(x: 450, y: 200), extra: [CGPoint(x: 430, y: 230)])))
         ]
     }
@@ -162,6 +168,13 @@ final class RulerRenderingTests: XCTestCase {
         // Past the second click, so the white edge. Row 420 - 200 = 220 is the pixel under a pointer at y = 200.
         let core = try XCTUnwrap(rep.colorAt(x: 315, y: 220)?.usingColorSpace(.sRGB))
         XCTAssertGreaterThan(core.redComponent * core.alphaComponent, 0.8)
+    }
+
+    func testBusyScenesReallyHaveFourPoints() {
+        for name in ["angle-four", "four-zigzag", "four-tight", "four-short", "four-very-short", "four-corner"] {
+            let scene = scenes().first { $0.0 == name }?.1
+            XCTAssertEqual(scene?.session.points.count, 4, name)
+        }
     }
 
     func testNothingDrawnOnAnotherScreen() throws {

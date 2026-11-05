@@ -53,6 +53,20 @@ final class RulerScaleTests: XCTestCase {
         XCTAssertEqual(scale.labelStride(forLabelExtent: 41), 5)
     }
 
+    func testTiltFormatting() {
+        XCTAssertEqual(ReadingFormat.tilt(45), "45.0\u{00B0}")
+        XCTAssertEqual(ReadingFormat.tilt(-45.04), "\u{2212}45.0\u{00B0}")
+        XCTAssertEqual(ReadingFormat.tilt(0), "0.0\u{00B0}")
+        XCTAssertEqual(ReadingFormat.tilt(-0.04), "0.0\u{00B0}", "no negative zero")
+    }
+
+    func testTiltThatRoundsToVerticalIsAlwaysPositive() {
+        XCTAssertEqual(ReadingFormat.tilt(90), "90.0\u{00B0}")
+        XCTAssertEqual(ReadingFormat.tilt(89.96), "90.0\u{00B0}")
+        XCTAssertEqual(ReadingFormat.tilt(-89.96), "90.0\u{00B0}", "would print as \u{2212}90.0\u{00B0}")
+        XCTAssertEqual(ReadingFormat.tilt(-89.94), "\u{2212}89.9\u{00B0}")
+    }
+
     func testFormatting() {
         let scale = RulerScale(unit: .cm, pointsPerCm: 10)
         XCTAssertEqual(ReadingFormat.reading(123.4, scale: scale), "12.34 cm")

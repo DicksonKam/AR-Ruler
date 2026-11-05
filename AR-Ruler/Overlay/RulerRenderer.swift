@@ -42,6 +42,8 @@ private enum Style {
     static let zeroFont = NSFont.monospacedDigitSystemFont(ofSize: 10, weight: .bold)
     static let chipFont = NSFont.monospacedDigitSystemFont(ofSize: 11, weight: .semibold)
     static let chipDetailFont = NSFont.monospacedDigitSystemFont(ofSize: 10, weight: .medium)
+    /// The angle between two lines is the one to read at a glance, so it outranks any line's own tilt.
+    static let arcAngleFont = NSFont.monospacedDigitSystemFont(ofSize: 12.5, weight: .bold)
 }
 
 private struct Chip {
@@ -56,6 +58,20 @@ private struct Chip {
         if let detail {
             lines.append(NSAttributedString(string: detail, attributes: [.font: Style.chipDetailFont, .foregroundColor: Style.mutedText]))
         }
+    }
+
+    /// A line's length with its tilt, smaller and dimmer, on one line.
+    init(length: String, tilt: String, kind: Kind = .neutral) {
+        self.kind = kind
+        let label = NSMutableAttributedString(string: length, attributes: [.font: Style.chipFont, .foregroundColor: NSColor.white])
+        let tiltColor = kind == .live ? NSColor(white: 1, alpha: 0.86) : Style.mutedText
+        label.append(NSAttributedString(string: " \u{00B7} \(tilt)", attributes: [.font: Style.chipDetailFont, .foregroundColor: tiltColor]))
+        lines = [label]
+    }
+
+    /// The angle between two lines.
+    init(arcAngle: String) {
+        lines = [NSAttributedString(string: arcAngle, attributes: [.font: Style.arcAngleFont, .foregroundColor: NSColor.white])]
     }
 
     var size: CGSize {
@@ -119,14 +135,6 @@ enum RulerRenderer {
         return result
     }
 
-    /// Ruler direction as a tilt in (-90, 90], since a ruler has no up or down of its own.
-    private static func displayAngle(_ degrees: Double) -> Double {
-        var angle = degrees
-        if angle > 90 { angle -= 180 }
-        if angle <= -90 { angle += 180 }
-        return angle
-    }
-
     // MARK: Live reading
 
     private struct LiveLayout {
@@ -168,11 +176,7 @@ enum RulerRenderer {
             live.rubberBand = (last, target)
             let length = MeasurementEngine.distance(from: last, to: target)
             if length >= RulerSession.minimumRulerLength {
-                // The direction matters while placing the ruler itself.
-                let detail = session.points.count == 1
-                    ? RulerLine(from: last, through: target).map { ReadingFormat.angle(displayAngle($0.angleDegrees)) }
-                    : nil
-                let chip = Chip(ReadingFormat.reading(length, scale: scene.scale), detail: detail, kind: .live)
+                let chip = lineChip(from: last, to: target, scale: scene.scale, kind: .live)
                 live.rubberChip = chip
                 let middle = CGPoint(x: (last.x + target.x) / 2, y: (last.y + target.y) / 2)
                 live.rubberChipRect = kept(rect(chip.size, centredOn: middle), inside: scene.screenFrame)
@@ -415,12 +419,10 @@ enum RulerRenderer {
                 isPin: true
             )
         }
-        if let length = scene.session.rulerLength, let measuredLine = scene.session.line {
-            // The direction only matters while the ruler is being placed or moved.
-            let detail = scene.session.isDragging ? ReadingFormat.angle(displayAngle(measuredLine.angleDegrees)) : nil
+        if let length = scene.session.rulerLength {
             items.append(Item(
                 position: length,
-                chip: Chip(ReadingFormat.reading(length, scale: scene.scale), detail: detail),
+                chip: lineChip(from: scene.session.points[0], to: scene.session.points[1], scale: scene.scale),
                 isPin: false
             ))
         }
@@ -454,6 +456,16 @@ enum RulerRenderer {
             drawPinDot(at: line.point(at: item.position), in: context)
         }
         for (chip, box) in chips { drawChip(chip, in: box, context: context) }
+    }
+
+    /// The one label every blue line carries.
+    private static func lineChip(from a: CGPoint, to b: CGPoint, scale: RulerScale, kind: Chip.Kind = .neutral) -> Chip {
+        let tilt = RulerLine(from: a, through: b)?.tiltDegrees ?? 0
+        return Chip(
+            length: ReadingFormat.reading(MeasurementEngine.distance(from: a, to: b), scale: scale),
+            tilt: ReadingFormat.tilt(tilt),
+            kind: kind
+        )
     }
 
     private static func drawPinDot(at point: CGPoint, in context: CGContext) {
@@ -499,9 +511,9 @@ enum RulerRenderer {
         guard points.count >= 3 else { return }
 
         let lengthChips = (0..<(points.count - 1)).map { index in
-            Chip(ReadingFormat.reading(MeasurementEngine.distance(from: points[index], to: points[index + 1]), scale: scene.scale))
+            lineChip(from: points[index], to: points[index + 1], scale: scene.scale)
         }
-        let angleChips = scene.session.angles.map { Chip(ReadingFormat.angle($0.degrees)) }
+        let angleChips = scene.session.angles.map { Chip(arcAngle: ReadingFormat.angle($0.degrees)) }
         let labels = AngleLayout(
             points: drawn,
             lengthSizes: lengthChips.map(\.size),

@@ -8,11 +8,11 @@ Hold your modifier key (**Option** by default, set in Preferences) for everythin
 
 | To | Do this |
 | --- | --- |
-| **Align** | Click two points. A ruler appears along them, with zero at the first click, ending on a whole cm or inch at least one unit past the second. |
+| **Align** | Click two points. A ruler appears along them, with zero at the first click, ending on a whole cm or inch at least one unit past the second. The label on the blue line shows its length and tilt, like `7.49 cm · 89.9°`. |
 | **Read** | Just move the mouse over the ruler, with or without the key. A marker shows the reading there. Away from the ruler there's no reading. |
 | **Pin a reading** | Click on the ruler or within about 8 points of it. The pin shows its position and, under Δ, the gap from the next pin down the ruler. |
-| **Measure an angle** | Click away from the ruler. It's replaced by plain lines with their lengths and the angle in a small arc. A fourth point adds another line and angle, and the click after that starts a new measurement. |
-| **Re-aim** | Drag either of the two points you clicked. The direction shows while you do. |
+| **Measure an angle** | Click away from the ruler. It's replaced by plain lines, each labelled with its length and tilt, and the angle between them in bold by a small arc. A fourth point adds another line and angle, and the click after that starts a new measurement. |
+| **Re-aim** | Drag either of the two points you clicked. |
 | **Slide** | Drag the ruler's body. |
 | **Lengthen** | Drag the tab on the far end. The ruler changes length in whole units, down to the second point, without changing its zero or angle. |
 | **Nudge** | Press the arrow keys to move the ruler 1 point. |
@@ -22,6 +22,10 @@ Hold your modifier key (**Option** by default, set in Preferences) for everythin
 While the key is held, the preview shows what a click would do: the marker turns amber when a click would pin, and a dashed line appears when it would add a point.
 
 Pins stay with the spot they marked on screen, so their readings update if you then fine-tune the ruler. A pin left past the ruler's ends is hidden, and comes back if the ruler reaches it again. Switching to an angle measurement removes the ruler and its pins for good.
+
+### Tilt and angle
+
+A line's **tilt** is its slant from horizontal, from −90° to 90°, and it's the same whichever end you clicked first. Positive rises to the right on screen, and exactly vertical always reads 90°. It's the small, dim value beside a length. The **angle** between two lines is the bold value by the arc.
 
 ### Good to know
 

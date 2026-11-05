@@ -66,6 +66,35 @@ final class RulerGeometryTests: XCTestCase {
         }
     }
 
+    private func tilt(_ dx: CGFloat, _ dy: CGFloat, file: StaticString = #filePath, line: UInt = #line) throws -> Double {
+        let start = CGPoint(x: 500, y: 500)
+        let forward = try XCTUnwrap(RulerLine(from: start, through: CGPoint(x: start.x + dx, y: start.y + dy)))
+        let backward = try XCTUnwrap(RulerLine(from: CGPoint(x: start.x + dx, y: start.y + dy), through: start))
+        XCTAssertEqual(forward.tiltDegrees, backward.tiltDegrees, accuracy: 1e-9, "click order must not matter", file: file, line: line)
+        return forward.tiltDegrees
+    }
+
+    func testTiltIsPositiveRisingToTheRightInYUpCoordinates() throws {
+        XCTAssertEqual(try tilt(100, 100), 45, accuracy: 1e-9, "AppKit y up: up and to the right")
+        XCTAssertEqual(try tilt(100, -100), -45, accuracy: 1e-9, "down and to the right")
+    }
+
+    func testTiltOfLevelAndVerticalLines() throws {
+        XCTAssertEqual(try tilt(100, 0), 0, accuracy: 1e-9)
+        XCTAssertEqual(try tilt(-100, 0), 0, accuracy: 1e-9)
+        XCTAssertEqual(try tilt(0, 100), 90, accuracy: 1e-9)
+        XCTAssertEqual(try tilt(0, -100), 90, accuracy: 1e-9, "never −90")
+    }
+
+    func testTiltStaysInRangeAllTheWayRound() throws {
+        for degrees in stride(from: 0.0, to: 360.0, by: 7.0) {
+            let radians = degrees * .pi / 180
+            let value = try tilt(100 * cos(radians), 100 * sin(radians))
+            XCTAssertGreaterThan(value, -90)
+            XCTAssertLessThanOrEqual(value, 90)
+        }
+    }
+
     func testLabelLanesSeparateOnlyWhatOverlaps() {
         XCTAssertEqual(LabelLanes.assign([0...10, 20...30, 40...50]), [0, 0, 0])
         XCTAssertEqual(LabelLanes.assign([0...10, 5...15, 8...18, 16...20]), [0, 1, 2, 0])

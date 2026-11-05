@@ -100,6 +100,12 @@ enum ReadingFormat {
         value < 0 ? minus + String(-value) : String(value)
     }
 
+    /// A line's tilt. Vertical is always 90.0°: a value that would print as −90.0° after rounding is vertical too.
+    static func tilt(_ degrees: Double) -> String {
+        let rounded = (degrees * 10).rounded() / 10
+        return abs(rounded) == 90 ? "90.0\u{00B0}" : angle(rounded)
+    }
+
     static func angle(_ degrees: Double) -> String {
         "\(signed(degrees, decimals: 1))\u{00B0}"
     }

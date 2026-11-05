@@ -35,6 +35,15 @@ struct RulerLine: Equatable {
         Double(atan2(direction.dy, direction.dx)) * 180 / .pi
     }
 
+    /// Tilt from horizontal in (-90, 90], the same whichever end was clicked first. Positive rises to the
+    /// right on screen. AppKit's y runs upwards, so that's the plain sign of the slope.
+    var tiltDegrees: Double {
+        var tilt = angleDegrees
+        if tilt > 90 { tilt -= 180 }
+        if tilt <= -90 { tilt += 180 }
+        return tilt
+    }
+
     /// The stretch of the line inside `rect`, as positions along the line. Nil if it misses the rect.
     func clipped(to rect: CGRect) -> ClosedRange<CGFloat>? {
         var lower = -CGFloat.greatestFiniteMagnitude

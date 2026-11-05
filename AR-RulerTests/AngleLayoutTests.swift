@@ -2,8 +2,9 @@ import XCTest
 
 final class AngleLayoutTests: XCTestCase {
     private let screen = CGRect(x: 0, y: 0, width: 1920, height: 1080)
-    private let lengthSize = CGSize(width: 58, height: 18)
-    private let angleSize = CGSize(width: 44, height: 18)
+    /// A length with its tilt, as wide as they get: "12.34 cm · −89.9°".
+    private let lengthSize = CGSize(width: 112, height: 18)
+    private let angleSize = CGSize(width: 52, height: 20)
 
     private func layout(_ points: [CGPoint]) -> AngleLayout {
         AngleLayout(
