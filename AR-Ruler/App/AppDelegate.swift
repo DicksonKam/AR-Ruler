@@ -13,6 +13,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWindowDele
     private let launchAtLoginItem = NSMenuItem(title: "Launch at Login", action: #selector(toggleLaunchAtLogin), keyEquivalent: "")
 
     func applicationDidFinishLaunching(_ notification: Notification) {
+        // First, so that stored settings are migrated before anything reads them.
+        _ = AppSettings.shared
         overlayController = OverlayWindowController()
         overlayController?.showOverlay()
         setupMenuBar()

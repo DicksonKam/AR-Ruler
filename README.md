@@ -1,6 +1,12 @@
 # AR Ruler
 
-A macOS app for measuring real-world distances and angles on your screen. Click two points to lay a ruler exactly along what you're measuring, then read any position along it. There's no window in your way: without the modifier keys held, the overlay ignores the mouse completely.
+A macOS menu bar app for measuring real-world distances and angles on your screen. Click two points to lay a ruler exactly along what you're measuring, then read any position along it. There's no window in your way: without the modifier keys held, the overlay ignores the mouse completely.
+
+![A ruler laid across a page of text, with pinned readings and a live reading](docs/images/ruler.png)
+
+![An angle measurement: three lines with their lengths and tilts, and two angles](docs/images/angle.png)
+
+*These images are drawn offscreen by the app's rendering code over a mock page, using the test suite below. They aren't screenshots of the running app.*
 
 ## Usage
 
@@ -55,15 +61,41 @@ This is saved per display and keeps working if you change the display's scaled r
 
 ## Permissions
 
-Nearly everything works with no permissions. The exception is **Esc while another app is frontmost**, because macOS only shares other apps' key presses with apps that have Accessibility access. If it's missing, the menu shows **Allow Esc to Clear in Other Apps…**, or you can enable AR Ruler in **System Settings > Privacy & Security > Accessibility**. A rebuilt copy of the app may need to be allowed again.
+Nearly everything works with no permissions, including holding the keys, clicking and moving the mouse.
+
+The exception is **Esc while another app is frontmost**. macOS only shares other apps' key presses with apps that have Accessibility access, so without it Esc does nothing there. Right-click with the keys held, and **Clear Measurement** in the menu, work either way.
+
+To allow it, choose **Allow Esc to Clear in Other Apps…** in the menu, which only appears while it's missing, or enable AR Ruler in **System Settings > Privacy & Security > Accessibility**. AR Ruler only uses this to notice the Esc key. Because builds are ad-hoc signed, a rebuilt copy may need to be allowed again.
+
+## Install from source
+
+There's no prebuilt download, so you build it yourself. You need macOS 13 or later and Xcode 15 or later.
+
+```bash
+git clone <this repository's URL>
+```
+
+```bash
+cd AR-Ruler
+```
+
+```bash
+xcodebuild -project AR-Ruler.xcodeproj -scheme AR-Ruler -configuration Release -derivedDataPath build build
+```
+
+```bash
+cp -R build/Build/Products/Release/AR-Ruler.app /Applications/
+```
+
+```bash
+open /Applications/AR-Ruler.app
+```
+
+If `xcodebuild` complains that it needs Xcode rather than the Command Line Tools, put `DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer` in front of it. The ruler icon then appears in the menu bar.
 
 ## Building
 
-`project.yml` is the source of truth for the Xcode project. After adding files, run `xcodegen generate`.
-
-1. Open `AR-Ruler.xcodeproj` in Xcode.
-2. Select the AR-Ruler scheme and build (Cmd+B).
-3. Run (Cmd+R) or use **Product > Archive** for distribution.
+You can also open `AR-Ruler.xcodeproj` in Xcode and run the AR-Ruler scheme. `project.yml` is the source of truth for the Xcode project, so after adding files, run `xcodegen generate`.
 
 ### Tests
 
@@ -75,7 +107,15 @@ To look at the rendering, save it to PNGs over light, dark and busy backgrounds:
 TEST_RUNNER_ARRULER_SNAPSHOT_DIR=/path/to/existing/folder xcodebuild -project AR-Ruler.xcodeproj -scheme AR-Ruler test
 ```
 
-## Requirements
+## Known limits
 
-- macOS 13.0 or later
-- Xcode 15.0 or later (for building)
+- **Only tested on macOS 27.** The deployment target is macOS 13, but it hasn't been run on anything older.
+- **No notarized download.** Builds are ad-hoc signed, so for now you build from source.
+- **Launch at Login hasn't been switched on or off in testing.** The menu item's logic is unit tested, and it has been seen showing the off state.
+- **Multiple displays haven't been tested hands-on.** That includes "Displays have separate Spaces" and displays being connected or removed. The app uses one overlay per screen, but only a single display was available.
+- **Holding Control + Option and clicking hasn't had a complete real-world test.** Detecting the held keys and handling the clicks were each tested with real events, but not yet together in this build. Holding a single key and clicking was tried by hand on an earlier build.
+- **Shift-snapping and calibration accuracy** are covered by unit tests and a made-up length, but haven't been checked in real use against a real object.
+
+## License
+
+MIT. See [LICENSE](LICENSE).

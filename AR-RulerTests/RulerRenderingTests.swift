@@ -157,9 +157,12 @@ final class RulerRenderingTests: XCTestCase {
                 try save(rep, name: "\(name)-\(background.rawValue)")
             }
         }
-        var retina = scenes()[0].1
-        retina.backingScale = 2
-        try save(try render(retina, background: .light, scale: 2), name: "level-light-2x")
+        // At retina scale for the README's images.
+        for name in ["level", "angle-four"] {
+            guard var retina = scenes().first(where: { $0.0 == name })?.1 else { continue }
+            retina.backingScale = 2
+            try save(try render(retina, background: .dark, scale: 2), name: "\(name)-dark-2x")
+        }
     }
 
     func testLevelRulerIsOnePixelWideAtOneX() throws {

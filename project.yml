@@ -1,6 +1,6 @@
 name: AR-Ruler
 options:
-  bundleIdPrefix: com.arruler
+  bundleIdPrefix: io.github.dicksonkam
   deploymentTarget:
     macOS: "13.0"
   xcodeVersion: "15.0"
@@ -8,7 +8,7 @@ settings:
   base:
     MARKETING_VERSION: "1.0"
     CURRENT_PROJECT_VERSION: "1"
-    PRODUCT_BUNDLE_IDENTIFIER: com.arruler.app
+    PRODUCT_BUNDLE_IDENTIFIER: io.github.dicksonkam.ar-ruler
 targets:
   AR-Ruler:
     type: application
@@ -36,7 +36,7 @@ targets:
     settings:
       base:
         GENERATE_INFOPLIST_FILE: true
-        PRODUCT_BUNDLE_IDENTIFIER: com.arruler.tests
+        PRODUCT_BUNDLE_IDENTIFIER: io.github.dicksonkam.ar-ruler.tests
 schemes:
   AR-Ruler:
     build:

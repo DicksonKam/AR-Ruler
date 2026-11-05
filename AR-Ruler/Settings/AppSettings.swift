@@ -13,6 +13,7 @@ class AppSettings: ObservableObject {
     @AppStorage(ModifierKeyMigration.modifierDefaultsKey) var modifierKey: ModifierKey = ModifierKey.defaultKey
 
     init() {
+        PreferencesMigration.run()
         ModifierKeyMigration.run()
     }
 }
