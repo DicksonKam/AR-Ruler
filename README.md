@@ -2,11 +2,11 @@
 
 A macOS menu bar app for measuring real-world distances and angles on your screen. Click two points to lay a ruler exactly along what you're measuring, then read any position along it. There's no window in your way: without the modifier keys held, the overlay ignores the mouse completely.
 
-![A ruler laid across a page of text, with pinned readings and a live reading](docs/images/ruler.png)
+![A ruler laid along a tilted shaft in a technical drawing, with pinned readings and a live reading](docs/images/ruler.png)
 
-![An angle measurement: three lines with their lengths and tilts, and two angles](docs/images/angle.png)
+![An angle measurement across a bracket: two lines with their lengths and tilts, and the angle between them](docs/images/angle.png)
 
-*These images are drawn offscreen by the app's rendering code over a mock page, using the test suite below. They aren't screenshots of the running app.*
+*These are screen captures of the running app over a demo drawing. The points were placed by the Debug build's [virtual input](#virtual-input-debug-builds-only), not by hand.*
 
 ## Usage
 
@@ -114,6 +114,8 @@ Debug builds can be driven by a script, for testing and screenshots without phys
 ```bash
 build/Build/Products/Debug/AR-Ruler.app/Contents/MacOS/AR-Ruler --input-script scripts/virtual-input/demo-ruler.txt
 ```
+
+To retake the README images, save `scripts/virtual-input/demo-scene.html` as a 16:10 image, open it full screen in Preview on a 1920x1080 display, and run `demo-ruler.txt` and `demo-angle.txt`. The scripts' points only line up with that layout.
 
 The app stays running afterwards, with the result on screen. Rewriting the file runs it again, and each run's log goes to `<script>.log`. A script with any bad line doesn't run at all, and the log lists every problem. Real keys and mouse are ignored for that launch, so they can't disturb a capture, unless a script says `physical on`.
 

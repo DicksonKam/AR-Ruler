@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>AR Ruler demo drawing</title>
+<style>
+  :root { --paper: #f3f0e8; --ink: #1f2a37; --soft: #66707c; --grid: #e2ddd0; --fill: #fbfaf6; }
+  html, body { margin: 0; height: 100%; background: var(--paper); overflow: hidden; }
+  svg { display: block; width: 100vw; height: 100vh; }
+  .part { fill: var(--fill); stroke: var(--ink); stroke-width: 2.4; stroke-linejoin: round; }
+  .edge { fill: none; stroke: var(--ink); stroke-width: 1.3; }
+  .thin { fill: none; stroke: var(--soft); stroke-width: 1; }
+  .axis { fill: none; stroke: var(--soft); stroke-width: 1.1; stroke-dasharray: 26 6 4 6; }
+  text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; fill: var(--ink); }
+  .label { font-size: 13px; letter-spacing: .08em; fill: var(--soft); }
+  .title { font-size: 19px; font-weight: 600; letter-spacing: .02em; }
+</style>
+</head>
+<body>
+<svg viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A technical drawing of a tilted stepped shaft and a triangular bracket">
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="var(--grid)" stroke-width="1"/>
+    </pattern>
+    <pattern id="hatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="9" stroke="var(--soft)" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1600" height="1000" fill="url(#grid)"/>
+  <rect x="36" y="36" width="1528" height="928" fill="none" stroke="var(--ink)" stroke-width="2"/>
+
+  <!-- Stepped shaft: tilted, so it can't be measured with a level ruler -->
+  <g transform="translate(120 650) rotate(-16)">
+    <line class="axis" x1="-40" y1="0" x2="770" y2="0"/>
+    <path class="part" d="M8 -35 H120 V-55 H290 V-75 H380 V-50 H590 V-30 H712 L720 -22 V22 L712 30 H590 V50 H380 V75 H290 V55 H120 V35 H8 L0 27 V-27 Z"/>
+    <rect x="290" y="-75" width="90" height="150" fill="url(#hatch)" stroke="none"/>
+    <path class="edge" d="M120 -35 V35 M290 -55 V55 M380 -50 V50 M590 -30 V30 M8 -35 V35 M712 -30 V30"/>
+    <rect class="edge" x="430" y="-11" width="110" height="22" rx="11"/>
+    <path class="thin" d="M604 -30V30 M618 -30V30 M632 -30V30 M646 -30V30 M660 -30V30 M674 -30V30 M688 -30V30"/>
+    <circle class="edge" cx="205" cy="0" r="9"/>
+  </g>
+
+  <!-- Triangular bracket: its corners are the angles to measure -->
+  <g transform="translate(1000 205) rotate(9)">
+    <path class="part" d="M28 0 L392 96 Q424 106 408 134 L120 500 Q98 526 76 498 L4 30 Q0 -6 28 0 Z"/>
+    <path class="edge" d="M62 54 L322 122 L118 382 Z"/>
+    <circle class="part" cx="44" cy="30" r="14"/>
+    <circle class="part" cx="372" cy="118" r="14"/>
+    <circle class="part" cx="100" cy="456" r="14"/>
+  </g>
+
+  <!-- Title block -->
+  <g transform="translate(1144 836)">
+    <rect width="420" height="128" fill="var(--fill)" stroke="var(--ink)" stroke-width="2"/>
+    <path d="M0 74H420 M250 74V128" stroke="var(--ink)" stroke-width="1.2" fill="none"/>
+    <text class="title" x="20" y="46">Shaft and bracket</text>
+    <text class="label" x="20" y="108">DEMO DRAWING</text>
+    <text class="label" x="270" y="108">NOT TO SCALE</text>
+  </g>
+</svg>
+</body>
+</html>
