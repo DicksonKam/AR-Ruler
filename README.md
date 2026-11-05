@@ -8,25 +8,27 @@ Hold your modifier key (**Option** by default, set in Preferences) for everythin
 
 | To | Do this |
 | --- | --- |
-| **Align** | Click two points. A ruler appears through both and runs to the screen edges, with zero at the first click and negative readings behind it. |
-| **Read** | Just move the mouse, with or without the key. A marker shows the reading at the point on the ruler square to the pointer. |
-| **Pin a reading** | Click within about 8 points of the line. The pin shows its position and, under Δ, the gap from the next pin down the ruler. |
-| **Measure an angle** | Click away from the line. Up to 4 points in all, with lengths and angles. The next off-line click starts a new measurement. |
-| **Re-aim** | Drag either end of the ruler. |
-| **Slide** | Drag the middle of the ruler. |
+| **Align** | Click two points. A ruler appears along them, with zero at the first click, ending on a whole cm or inch at least one unit past the second. |
+| **Read** | Just move the mouse over the ruler, with or without the key. A marker shows the reading there. Away from the ruler there's no reading. |
+| **Pin a reading** | Click on the ruler or within about 8 points of it. The pin shows its position and, under Δ, the gap from the next pin down the ruler. |
+| **Measure an angle** | Click away from the ruler. It's replaced by plain lines with their lengths and the angle in a small arc. A fourth point adds another line and angle, and the click after that starts a new measurement. |
+| **Re-aim** | Drag either of the two points you clicked. The direction shows while you do. |
+| **Slide** | Drag the ruler's body. |
+| **Lengthen** | Drag the tab on the far end. The ruler changes length in whole units, down to the second point, without changing its zero or angle. |
 | **Nudge** | Press the arrow keys to move the ruler 1 point. |
-| **Snap** | Hold **Shift** while placing a point or dragging an end to snap to 0°, 45° or 90°. |
+| **Snap** | Hold **Shift** while placing a point or dragging one of the two points to snap to 0°, 45° or 90°. |
 | **Clear** | Press **Esc**, or right-click with the key held. Also in the menu bar menu. |
 
 While the key is held, the preview shows what a click would do: the marker turns amber when a click would pin, and a dashed line appears when it would add a point.
 
-Pins stay with the spot they marked on screen, so their readings update if you then fine-tune the ruler.
+Pins stay with the spot they marked on screen, so their readings update if you then fine-tune the ruler. A pin left past the ruler's ends is hidden, and comes back if the ruler reaches it again. Switching to an angle measurement removes the ruler and its pins for good.
 
 ### Good to know
 
-- **Nudging takes over the key combination.** While a ruler is showing, modifier + arrow keys go to AR Ruler rather than the app you're in (so Option+arrow won't jump by word in a text editor). They return as soon as the ruler is cleared.
+- **Nudging takes over the key combination.** While a ruler is showing, modifier + arrow keys go to AR Ruler rather than the app you're in (so Option+arrow won't jump by word in a text editor). They return when the ruler is cleared or replaced by an angle measurement.
 - **With Control as the modifier**, macOS may keep Control+Up and Control+Down for Mission Control and App Exposé, and Control+Left and Control+Right for switching Spaces, if those shortcuts are on. Option avoids this.
-- **The line runs edge to edge, so "near the line" does too.** An angle point within about 8 points of the line, even far past the ends, drops a pin instead.
+- **"On the ruler" means the body you can see**, plus about 8 points around it. A click past the end is an angle point, even in line with the ruler. Lengthen the ruler first to pin further along.
+- **Angle measurements can't be fine-tuned.** Clear and click again to redo one.
 - **One screen at a time.** Clicks on another screen are ignored until the measurement is cleared or has its 4 points.
 
 ## Calibration

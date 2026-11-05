@@ -89,8 +89,9 @@ final class RulerRenderingTests: XCTestCase {
         )
     }
 
-    private func session(_ a: CGPoint, _ b: CGPoint, pins: [CGPoint] = [], extra: [CGPoint] = []) -> RulerSession {
+    private func session(_ a: CGPoint, _ b: CGPoint, pins: [CGPoint] = [], extra: [CGPoint] = [], pointsPerUnit: CGFloat = 36.3) -> RulerSession {
         var session = RulerSession()
+        session.pointsPerUnit = pointsPerUnit
         session.click(at: a, on: screen)
         session.click(at: b, on: screen)
         pins.forEach { session.click(at: $0, on: screen) }
@@ -100,31 +101,41 @@ final class RulerRenderingTests: XCTestCase {
 
     private func scenes() -> [(String, RulerScene)] {
         let level = session(CGPoint(x: 180, y: 210), CGPoint(x: 460, y: 210),
-                            pins: [CGPoint(x: 300, y: 212), CGPoint(x: 372, y: 208), CGPoint(x: 700, y: 210), CGPoint(x: 72, y: 210)])
+                            pins: [CGPoint(x: 300, y: 212), CGPoint(x: 372, y: 208), CGPoint(x: 420, y: 220)])
         let close = session(CGPoint(x: 180, y: 210), CGPoint(x: 460, y: 210),
                             pins: [CGPoint(x: 300, y: 210), CGPoint(x: 318, y: 210), CGPoint(x: 332, y: 210), CGPoint(x: 449, y: 210)])
-        let tilted = session(CGPoint(x: 160, y: 90), CGPoint(x: 400, y: 230),
-                             pins: [CGPoint(x: 300, y: 172), CGPoint(x: 520, y: 300)])
+        let tilted = session(CGPoint(x: 160, y: 90), CGPoint(x: 400, y: 230), pins: [CGPoint(x: 300, y: 172)])
         let steep = session(CGPoint(x: 450, y: 60), CGPoint(x: 500, y: 330), pins: [CGPoint(x: 472, y: 180)])
-        let plumb = session(CGPoint(x: 450, y: 60), CGPoint(x: 450, y: 340), pins: [CGPoint(x: 450, y: 180)])
-        let angles = session(CGPoint(x: 120, y: 120), CGPoint(x: 400, y: 120), extra: [CGPoint(x: 560, y: 320), CGPoint(x: 780, y: 200)])
+        let plumb = session(CGPoint(x: 450, y: 60), CGPoint(x: 450, y: 332), pins: [CGPoint(x: 450, y: 180)])
         var firstPointOnly = RulerSession()
+        firstPointOnly.pointsPerUnit = 36.3
         firstPointOnly.click(at: CGPoint(x: 180, y: 210), on: screen)
+        var dragging = level
+        dragging.pressBegan(at: CGPoint(x: 460, y: 210), on: screen)
+        dragging.pressMoved(to: CGPoint(x: 460, y: 300))
+        // Like the screenshot that prompted this design: a plumb ruler, then a third click close to its second point.
+        let screenshotCase = session(CGPoint(x: 450, y: 80), CGPoint(x: 450, y: 352), extra: [CGPoint(x: 490, y: 60)])
         return [
-            ("level", scene(level, pointer: CGPoint(x: 560, y: 150))),
-            ("level-nearline-modifier", scene(level, pointer: CGPoint(x: 560, y: 212), modifierHeld: true)),
+            ("level", scene(level, pointer: CGPoint(x: 320, y: 225))),
+            ("level-willpin", scene(level, pointer: CGPoint(x: 350, y: 212), modifierHeld: true)),
             ("close-pins", scene(close)),
-            ("tilted", scene(tilted, pointer: CGPoint(x: 240, y: 240))),
-            ("steep", scene(steep, pointer: CGPoint(x: 600, y: 200))),
-            ("plumb", scene(plumb)),
-            ("angles", scene(angles, pointer: CGPoint(x: 300, y: 300))),
-            ("top-edge", scene(session(CGPoint(x: 200, y: 412), CGPoint(x: 500, y: 412), pins: [CGPoint(x: 350, y: 412)]), pointer: CGPoint(x: 600, y: 300))),
-            ("inches", scene(session(CGPoint(x: 180, y: 210), CGPoint(x: 460, y: 210), pins: [CGPoint(x: 300, y: 210)]), unit: .inch, pointer: CGPoint(x: 560, y: 150))),
-            ("preview-first-segment", scene(firstPointOnly, pointer: CGPoint(x: 520, y: 300), modifierHeld: true)),
+            ("tilted", scene(tilted, pointer: CGPoint(x: 260, y: 175))),
+            ("steep", scene(steep, pointer: CGPoint(x: 470, y: 250))),
+            ("plumb", scene(plumb, pointer: CGPoint(x: 440, y: 150))),
+            ("top-edge", scene(session(CGPoint(x: 200, y: 412), CGPoint(x: 500, y: 412), pins: [CGPoint(x: 350, y: 412)]))),
+            ("near-right-edge", scene(session(CGPoint(x: 640, y: 210), CGPoint(x: 880, y: 210)))),
+            ("inches", scene(session(CGPoint(x: 180, y: 210), CGPoint(x: 460, y: 210), pins: [CGPoint(x: 300, y: 210)], pointsPerUnit: 36.3 * 2.54), unit: .inch, pointer: CGPoint(x: 400, y: 225))),
+            ("dense", scene(session(CGPoint(x: 180, y: 210), CGPoint(x: 460, y: 210), pointsPerUnit: 12), pointsPerCm: 12)),
+            ("placing", scene(firstPointOnly, pointer: CGPoint(x: 520, y: 300), modifierHeld: true)),
+            ("dragging", scene(dragging)),
+            ("hover-grip", scene(level, pointer: level.gripPoint, modifierHeld: true)),
             ("preview-angle", scene(level, pointer: CGPoint(x: 620, y: 340), modifierHeld: true)),
-            ("hover-handle", scene(level, pointer: CGPoint(x: 462, y: 212), modifierHeld: true)),
-            ("angle-below", scene(session(CGPoint(x: 220, y: 300), CGPoint(x: 480, y: 300), extra: [CGPoint(x: 650, y: 120), CGPoint(x: 800, y: 220)]))),
-            ("dense", scene(session(CGPoint(x: 180, y: 210), CGPoint(x: 460, y: 210)), pointsPerCm: 12))
+            ("angle-90", scene(session(CGPoint(x: 200, y: 110), CGPoint(x: 500, y: 110), extra: [CGPoint(x: 500, y: 340)]))),
+            ("angle-screenshot", scene(screenshotCase)),
+            ("angle-tight", scene(session(CGPoint(x: 150, y: 120), CGPoint(x: 600, y: 120), extra: [CGPoint(x: 200, y: 165)]))),
+            ("angle-obtuse", scene(session(CGPoint(x: 120, y: 200), CGPoint(x: 450, y: 200), extra: [CGPoint(x: 800, y: 240)]))),
+            ("angle-four", scene(session(CGPoint(x: 120, y: 120), CGPoint(x: 400, y: 120), extra: [CGPoint(x: 560, y: 320), CGPoint(x: 780, y: 200)]))),
+            ("angle-short-arms", scene(session(CGPoint(x: 420, y: 200), CGPoint(x: 450, y: 200), extra: [CGPoint(x: 430, y: 230)])))
         ]
     }
 
@@ -146,10 +157,10 @@ final class RulerRenderingTests: XCTestCase {
     }
 
     func testLevelRulerIsOnePixelWideAtOneX() throws {
-        let scene = scene(session(CGPoint(x: 100, y: 200), CGPoint(x: 800, y: 200)))
+        let scene = scene(session(CGPoint(x: 100, y: 200), CGPoint(x: 300, y: 200)))
         let rep = try render(scene, background: nil, scale: 1)
-        // Clear of the ticks and away from the zero ring. Row 420 - 200 = 220 is the pixel under a pointer at y = 200.
-        let core = try XCTUnwrap(rep.colorAt(x: 830, y: 220)?.usingColorSpace(.sRGB))
+        // Past the second click, so the white edge. Row 420 - 200 = 220 is the pixel under a pointer at y = 200.
+        let core = try XCTUnwrap(rep.colorAt(x: 315, y: 220)?.usingColorSpace(.sRGB))
         XCTAssertGreaterThan(core.redComponent * core.alphaComponent, 0.8)
     }
 
@@ -166,7 +177,17 @@ final class RulerRenderingTests: XCTestCase {
     func testLiveBoundsCoverTheMarkerAndAreEmptyWithoutAPointer() {
         let base = session(CGPoint(x: 100, y: 200), CGPoint(x: 400, y: 200))
         XCTAssertTrue(RulerRenderer.liveBounds(for: scene(base)).isNull)
-        let bounds = RulerRenderer.liveBounds(for: scene(base, pointer: CGPoint(x: 250, y: 300)))
+        let bounds = RulerRenderer.liveBounds(for: scene(base, pointer: CGPoint(x: 250, y: 215)))
         XCTAssertTrue(bounds.contains(CGPoint(x: 250, y: 200)))
+    }
+
+    func testNoLiveReadingOnTheGrip() {
+        let base = session(CGPoint(x: 100, y: 200), CGPoint(x: 400, y: 200))
+        XCTAssertTrue(RulerRenderer.liveBounds(for: scene(base, pointer: base.gripPoint)).isNull)
+    }
+
+    func testNoLiveReadingOffTheRuler() {
+        let base = session(CGPoint(x: 100, y: 200), CGPoint(x: 400, y: 200))
+        XCTAssertTrue(RulerRenderer.liveBounds(for: scene(base, pointer: CGPoint(x: 250, y: 380))).isNull)
     }
 }

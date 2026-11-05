@@ -115,7 +115,10 @@ final class OverlayWindowController {
             guard let self, let screen else { return nil }
             return self.scene(for: screen)
         }
-        view.onPress = { [weak self] location, event in self?.pressed(at: location, event: event, on: frame) }
+        view.onPress = { [weak self, weak view] location, event in
+            guard let self, let overlay = self.overlays.first(where: { $0.view === view }) else { return }
+            self.pressed(at: location, event: event, on: overlay)
+        }
         view.onDrag = { [weak self] location, event in self?.dragged(to: location, event: event) }
         view.onRelease = { [weak self] location, event in self?.released(at: location, event: event) }
         view.onMove = { [weak self] location, event in self?.pointerMoved(to: location, flags: event.modifierFlags) }
@@ -156,7 +159,14 @@ final class OverlayWindowController {
     }
 
     func redrawAll() {
+        syncRulerScale()
         overlays.forEach { $0.view.needsDisplay = true }
+    }
+
+    /// The ruler's fitted length is in whole units, so it follows a change of unit or calibration.
+    private func syncRulerScale() {
+        guard let overlay = overlays.first(where: { $0.screen.frame == session.bounds }) else { return }
+        session.pointsPerUnit = RulerScale(unit: unit, pointsPerCm: CalibrationManager.shared.pointsPerCm(for: overlay.screen)).pointsPerUnit
     }
 
     // MARK: Mouse
@@ -165,8 +175,9 @@ final class OverlayWindowController {
         flags.intersection(.deviceIndependentFlagsMask).contains(.shift)
     }
 
-    private func pressed(at location: CGPoint, event: NSEvent, on frame: CGRect) {
-        session.pressBegan(at: location, on: frame)
+    private func pressed(at location: CGPoint, event: NSEvent, on overlay: Overlay) {
+        session.pointsPerUnit = RulerScale(unit: unit, pointsPerCm: CalibrationManager.shared.pointsPerCm(for: overlay.screen)).pointsPerUnit
+        session.pressBegan(at: location, on: overlay.screen.frame)
         pointer = location
     }
 
