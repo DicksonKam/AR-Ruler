@@ -41,7 +41,7 @@ struct AngleLayout: Equatable {
             var sweep = atan2(toC.dy, toC.dx) - start
             while sweep > .pi { sweep -= 2 * .pi }
             while sweep < -.pi { sweep += 2 * .pi }
-            arcs.append(Arc(vertex: vertex, radius: max(8, min(18, shortest * 0.35)), startAngle: start, sweep: sweep))
+            arcs.append(Arc(vertex: vertex, radius: max(8, min(26, shortest * 0.35)), startAngle: start, sweep: sweep))
         }
 
         func isClear(_ box: CGRect, taken: [CGRect]) -> Bool {

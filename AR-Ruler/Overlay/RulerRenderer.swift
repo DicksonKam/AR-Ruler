@@ -537,7 +537,8 @@ enum RulerRenderer {
                 endAngle: arc.startAngle + arc.sweep,
                 clockwise: arc.sweep < 0
             )
-            strokeDual(path, core: Style.ink, width: 1, haloWidth: 2.6, in: context)
+            // Not `ink`: pure white vanishes on a light page, leaving only its halo.
+            strokeDual(path, core: Style.accent, width: 1.5, haloWidth: 3.25, in: context)
         }
         for point in drawn {
             drawRing(at: point, radius: Style.vertexRadius, color: Style.accent, in: context)

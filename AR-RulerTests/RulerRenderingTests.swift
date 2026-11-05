@@ -165,6 +165,43 @@ final class RulerRenderingTests: XCTestCase {
         }
     }
 
+    /// The overlay can't see what's behind it, so the arc's own colour has to differ from both a light and a dark page.
+    func testAngleArcCoreStandsOutOnLightAndDarkPages() throws {
+        let points = [CGPoint(x: 200, y: 110), CGPoint(x: 500, y: 110), CGPoint(x: 500, y: 340)]
+        var angle = session(points[0], points[1], extra: [points[2]])
+        angle.pointsPerUnit = 36.3
+        let backingScale: CGFloat = 2
+        var measured = scene(angle, backingScale: backingScale)
+        measured.backingScale = backingScale
+        // The renderer draws through pixel centres, so the arc is laid out here from the same points.
+        let drawn = points.map { CGPoint(x: (floor($0.x * backingScale) + 0.5) / backingScale, y: (ceil($0.y * backingScale) - 0.5) / backingScale) }
+        let arc = try XCTUnwrap(AngleLayout(
+            points: drawn,
+            lengthSizes: [CGSize(width: 112, height: 18), CGSize(width: 112, height: 18)],
+            angleSizes: [CGSize(width: 52, height: 20)],
+            bounds: screen
+        ).arcs.first)
+        let middle = arc.startAngle + arc.sweep / 2
+        let onArc = CGPoint(x: arc.vertex.x + arc.radius * cos(middle), y: arc.vertex.y + arc.radius * sin(middle))
+
+        func luminance(_ color: NSColor) throws -> CGFloat {
+            let rgb = try XCTUnwrap(color.usingColorSpace(.sRGB))
+            return 0.2126 * rgb.redComponent + 0.7152 * rgb.greenComponent + 0.0722 * rgb.blueComponent
+        }
+        let pages: [(Background, NSColor)] = [
+            (.light, NSColor(white: 0.97, alpha: 1)),
+            (.dark, NSColor(srgbRed: 0.11, green: 0.12, blue: 0.15, alpha: 1))
+        ]
+        for (background, page) in pages {
+            let rep = try render(measured, background: background, scale: backingScale)
+            let core = try XCTUnwrap(rep.colorAt(
+                x: Int(floor(onArc.x * backingScale)),
+                y: rep.pixelsHigh - 1 - Int(floor(onArc.y * backingScale))
+            ))
+            XCTAssertGreaterThan(abs(try luminance(core) - luminance(page)), 0.25, "arc core blends into the \(background.rawValue) page")
+        }
+    }
+
     func testLevelRulerIsOnePixelWideAtOneX() throws {
         let scene = scene(session(CGPoint(x: 100, y: 200), CGPoint(x: 300, y: 200)))
         let rep = try render(scene, background: nil, scale: 1)

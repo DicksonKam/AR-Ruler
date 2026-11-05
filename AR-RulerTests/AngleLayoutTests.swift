@@ -77,7 +77,7 @@ final class AngleLayoutTests: XCTestCase {
     func testArcStaysSmallAndFollowsTheShorterAngleWay() throws {
         let result = layout([CGPoint(x: 600, y: 500), CGPoint(x: 900, y: 500), CGPoint(x: 900, y: 800)])
         let arc = try XCTUnwrap(result.arcs.first)
-        XCTAssertLessThanOrEqual(arc.radius, 18)
+        XCTAssertLessThanOrEqual(arc.radius, 26)
         XCTAssertEqual(abs(arc.sweep), .pi / 2, accuracy: 1e-9)
     }
 
