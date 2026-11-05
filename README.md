@@ -1,10 +1,10 @@
 # AR Ruler
 
-A macOS app for measuring real-world distances and angles on your screen. Click two points to lay a ruler exactly along what you're measuring, then read any position along it. There's no window in your way: without the modifier key held, the overlay ignores the mouse completely.
+A macOS app for measuring real-world distances and angles on your screen. Click two points to lay a ruler exactly along what you're measuring, then read any position along it. There's no window in your way: without the modifier keys held, the overlay ignores the mouse completely.
 
 ## Usage
 
-Hold your modifier key (**Option** by default, set in Preferences) for everything below. Clicks without it go straight to the app underneath, and your current app keeps its focus either way.
+Hold your modifier keys (**Control + Option** by default, set in Preferences) for everything below. Both must be down: one alone does nothing, so Control-click keeps working as right-click. Clicks without it go straight to the app underneath, and your current app keeps its focus either way.
 
 | To | Do this |
 | --- | --- |
@@ -13,9 +13,8 @@ Hold your modifier key (**Option** by default, set in Preferences) for everythin
 | **Pin a reading** | Click on the ruler or within about 8 points of it. The pin shows its position and, under Δ, the gap from the next pin down the ruler. |
 | **Measure an angle** | Click away from the ruler. It's replaced by plain lines, each labelled with its length and tilt, and the angle between them in bold by a small arc. A fourth point adds another line and angle, and the click after that starts a new measurement. |
 | **Re-aim** | Drag either of the two points you clicked. |
-| **Slide** | Drag the ruler's body. |
+| **Move** | Drag the ruler's body. |
 | **Lengthen** | Drag the tab on the far end. The ruler changes length in whole units, down to the second point, without changing its zero or angle. |
-| **Nudge** | Press the arrow keys to move the ruler 1 point. |
 | **Snap** | Hold **Shift** while placing a point or dragging one of the two points to snap to 0°, 45° or 90°. |
 | **Clear** | Press **Esc**, or right-click with the key held. Also in the menu bar menu. |
 
@@ -29,8 +28,8 @@ A line's **tilt** is its slant from horizontal, from −90° to 90°, and it's t
 
 ### Good to know
 
-- **Nudging takes over the key combination.** While a ruler is showing, modifier + arrow keys go to AR Ruler rather than the app you're in (so Option+arrow won't jump by word in a text editor). They return when the ruler is cleared or replaced by an angle measurement.
-- **With Control as the modifier**, macOS may keep Control+Up and Control+Down for Mission Control and App Exposé, and Control+Left and Control+Right for switching Spaces, if those shortcuts are on. Option avoids this.
+- **With Control alone as the modifier**, Control-click is taken over while measuring, which is why it's no longer the default.
+- **VoiceOver** uses Control + Option as its own modifier. With VoiceOver on, choose another key in Preferences.
 - **"On the ruler" means the body you can see**, plus about 8 points around it. A click past the end is an angle point, even in line with the ruler. Lengthen the ruler first to pin further along.
 - **Angle measurements can't be fine-tuned.** Clear and click again to redo one.
 - **One screen at a time.** Clicks on another screen are ignored until the measurement is cleared or has its 4 points.
@@ -42,12 +41,14 @@ AR Ruler lives only in the menu bar, with no Dock icon or Cmd-Tab entry. Its rul
 - **Launch at Login** is off until you turn it on. The checkmark shows what macOS has on record, including changes made in **System Settings > General > Login Items**. If macOS wants your approval there, the menu item says so and opens the page.
 - **If the icon is hidden**, as macOS can do in a crowded menu bar, open AR Ruler again from Applications or Spotlight. That opens Preferences, and Cmd-Q quits from there.
 
+Upgrading from a version with **Control** chosen moves you to Control + Option once. Option or Command are left as they were, and you can choose Control again in Preferences; it won't be changed back.
+
 ## Calibration
 
 By default the scale comes from the physical size the display reports, or 72 points per inch if it reports none. Some displays report it wrongly. To correct it for a display:
 
 1. Hold something of known length against the screen, such as a bank card (8.56 cm wide).
-2. Modifier-click its two ends to lay the ruler across it.
+2. Hold your modifier keys and click its two ends to lay the ruler across it.
 3. Choose **Calibrate This Display…** from the menu bar menu and enter its true length.
 
 This is saved per display and keeps working if you change the display's scaled resolution or rotate it. **Reset Calibration** returns to the reported size. The menu shows the current scale and where it came from.

@@ -60,7 +60,7 @@ enum CalibrationDialog {
         let key = AppSettings.shared.modifierKey.rawValue
         alert.informativeText = """
             Hold a real object of known length against the screen, such as a bank card (8.56 cm wide). \
-            \(key)-click its two ends to lay the ruler across it, then choose Calibrate again.
+            Hold \(key) and click its two ends to lay the ruler across it, then choose Calibrate again.
             """
         alert.runModal()
     }

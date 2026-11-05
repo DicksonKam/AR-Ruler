@@ -284,7 +284,7 @@ struct RulerSession: Equatable {
 
     // MARK: Fine-tuning
 
-    /// Moves the ruler without leaving the screen. Used for sliding and arrow key nudges.
+    /// Moves the ruler without leaving the screen.
     mutating func translateRuler(by delta: CGVector) {
         guard hasRuler, let bounds else { return }
         let a = points[0], b = points[1]

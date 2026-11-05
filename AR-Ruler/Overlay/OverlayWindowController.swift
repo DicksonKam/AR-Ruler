@@ -23,18 +23,9 @@ final class OverlayWindowController {
     private var modifierMonitors: [Any] = []
     private var escapeMonitors: [Any] = []
     private var pointerMonitor: Any?
-    private let hotKeys = ArrowHotKeys()
 
     private var settings: AppSettings { .shared }
     private var unit: RulerUnit { settings.unit == .inch ? .inch : .cm }
-
-    init() {
-        hotKeys.onNudge = { [weak self] delta in
-            guard let self else { return }
-            self.session.translateRuler(by: delta)
-            self.redrawAll()
-        }
-    }
 
     // MARK: Lifecycle
 
@@ -67,7 +58,6 @@ final class OverlayWindowController {
         removeMonitors()
         registeredObservers.forEach(NotificationCenter.default.removeObserver)
         registeredObservers = []
-        hotKeys.unregister()
         overlays.forEach { $0.panel.orderOut(nil) }
         overlays = []
     }
@@ -234,7 +224,7 @@ final class OverlayWindowController {
 
     private func modifiersChanged(_ flags: NSEvent.ModifierFlags) {
         let relevant = flags.intersection(.deviceIndependentFlagsMask)
-        let held = relevant.contains(settings.modifierFlags)
+        let held = settings.modifierKey.isHeld(in: relevant)
         let shift = relevant.contains(.shift)
         let changed = held != modifierHeld || shift != shiftHeld
         modifierHeld = held
@@ -286,11 +276,6 @@ final class OverlayWindowController {
             }
         }
 
-        if session.hasRuler {
-            hotKeys.register(modifier: settings.modifierKey)
-        } else {
-            hotKeys.unregister()
-        }
         applyCaptureState()
         redrawAll()
     }

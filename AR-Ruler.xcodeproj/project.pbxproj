@@ -11,13 +11,15 @@
 		0AFB9B771601A3ED3FD343E9 /* CalibrationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B27A5CBF24EBACF0099EEF /* CalibrationStore.swift */; };
 		0B0E8BE04EF02DB4AFCA2A9F /* ARRulerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B07A9BB11ED1B38DADE750C /* ARRulerApp.swift */; };
 		0B5D19C526C2EF6709DD9F47 /* AngleLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4455EA2D6F35BC790F078F /* AngleLayout.swift */; };
+		1073C00828AB379E53117A42 /* ModifierKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B492B8CE598526E52222C76 /* ModifierKey.swift */; };
 		1A24236A6846F827C1204A8B /* AngleLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F73787D6D4DB61BEAD5853 /* AngleLayoutTests.swift */; };
 		1A9962CFA7B8BB28B0F44B23 /* OverlayContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F4CE6DB034D941333FE5FB /* OverlayContentView.swift */; };
-		1DE0115B3510E33815D069F8 /* ArrowHotKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF5CC685D092C9161F6BFB9 /* ArrowHotKeys.swift */; };
 		22B228A30C07C90E54AC5695 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58224611104856A05D9657C1 /* AppDelegate.swift */; };
 		2537395418877F0BEF1576E8 /* RulerRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDFB0D885CE16805A661101 /* RulerRenderer.swift */; };
 		2D5674B5887EA0D12EA2A780 /* RulerSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2003CEBE9E58588E5F168DFC /* RulerSession.swift */; };
+		2F45669F35C7279CF89254E1 /* ModifierKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B492B8CE598526E52222C76 /* ModifierKey.swift */; };
 		3E17581CE6FE8579314E64BD /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F702D180EF03DF9459D7108 /* AppSettings.swift */; };
+		49BE74774F538E9DECB7D42A /* ModifierKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DC605F03B46E5D6F109B79E /* ModifierKeyTests.swift */; };
 		5485880D2F9019FC2561EDA3 /* RulerGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B3C39CB2FF9D7B49527FE3C /* RulerGeometry.swift */; };
 		57EDFDECC42DFDA632FCD366 /* RulerGeometryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFDAFA3CBDD6B1B1FF1ECAA /* RulerGeometryTests.swift */; };
 		689CF0F48034CFF6F143AAD8 /* OverlayWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE603A26BBBB7055802CDBB0 /* OverlayWindowController.swift */; };
@@ -55,9 +57,9 @@
 		45B27A5CBF24EBACF0099EEF /* CalibrationStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalibrationStore.swift; sourceTree = "<group>"; };
 		58224611104856A05D9657C1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		66A604BA244C79BDDDDD03EF /* RulerRenderingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulerRenderingTests.swift; sourceTree = "<group>"; };
+		6DC605F03B46E5D6F109B79E /* ModifierKeyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifierKeyTests.swift; sourceTree = "<group>"; };
 		6FC77327FB1738E36A2381AA /* LoginItemMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginItemMenu.swift; sourceTree = "<group>"; };
 		75F4CE6DB034D941333FE5FB /* OverlayContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayContentView.swift; sourceTree = "<group>"; };
-		7AF5CC685D092C9161F6BFB9 /* ArrowHotKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrowHotKeys.swift; sourceTree = "<group>"; };
 		7CFDAFA3CBDD6B1B1FF1ECAA /* RulerGeometryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulerGeometryTests.swift; sourceTree = "<group>"; };
 		7E6F662310AAC7E70CD9F6DF /* AR-Ruler.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AR-Ruler.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		80B0557A3BE30405E764E5FB /* AR-RulerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "AR-RulerTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -65,6 +67,7 @@
 		84B0B82126317C82FFD37558 /* LaunchAtLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchAtLogin.swift; sourceTree = "<group>"; };
 		89934CCA6CEBD47BC9BC1D1C /* RulerScaleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulerScaleTests.swift; sourceTree = "<group>"; };
 		8B3C39CB2FF9D7B49527FE3C /* RulerGeometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulerGeometry.swift; sourceTree = "<group>"; };
+		8B492B8CE598526E52222C76 /* ModifierKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifierKey.swift; sourceTree = "<group>"; };
 		93967955968DB8FAC5CD0DD4 /* ARRuler.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ARRuler.entitlements; sourceTree = "<group>"; };
 		9B07A9BB11ED1B38DADE750C /* ARRulerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARRulerApp.swift; sourceTree = "<group>"; };
 		9CDFB0D885CE16805A661101 /* RulerRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulerRenderer.swift; sourceTree = "<group>"; };
@@ -117,6 +120,7 @@
 				3E4455EA2D6F35BC790F078F /* AngleLayout.swift */,
 				45B27A5CBF24EBACF0099EEF /* CalibrationStore.swift */,
 				6FC77327FB1738E36A2381AA /* LoginItemMenu.swift */,
+				8B492B8CE598526E52222C76 /* ModifierKey.swift */,
 				8B3C39CB2FF9D7B49527FE3C /* RulerGeometry.swift */,
 				1820F763ADF9763B1BF8DD74 /* RulerScale.swift */,
 				2003CEBE9E58588E5F168DFC /* RulerSession.swift */,
@@ -130,6 +134,7 @@
 				C8F73787D6D4DB61BEAD5853 /* AngleLayoutTests.swift */,
 				A5BD3665633A4FBB91A3F7C1 /* CalibrationStoreTests.swift */,
 				0275B38CE1E427BA39ADDA26 /* LoginItemMenuTests.swift */,
+				6DC605F03B46E5D6F109B79E /* ModifierKeyTests.swift */,
 				7CFDAFA3CBDD6B1B1FF1ECAA /* RulerGeometryTests.swift */,
 				66A604BA244C79BDDDDD03EF /* RulerRenderingTests.swift */,
 				89934CCA6CEBD47BC9BC1D1C /* RulerScaleTests.swift */,
@@ -141,7 +146,6 @@
 		9EF26C4153C69F7A120D8B10 /* Overlay */ = {
 			isa = PBXGroup;
 			children = (
-				7AF5CC685D092C9161F6BFB9 /* ArrowHotKeys.swift */,
 				75F4CE6DB034D941333FE5FB /* OverlayContentView.swift */,
 				CE603A26BBBB7055802CDBB0 /* OverlayWindowController.swift */,
 				9CDFB0D885CE16805A661101 /* RulerRenderer.swift */,
@@ -275,13 +279,13 @@
 				0B5D19C526C2EF6709DD9F47 /* AngleLayout.swift in Sources */,
 				22B228A30C07C90E54AC5695 /* AppDelegate.swift in Sources */,
 				3E17581CE6FE8579314E64BD /* AppSettings.swift in Sources */,
-				1DE0115B3510E33815D069F8 /* ArrowHotKeys.swift in Sources */,
 				060C812FB038591672B805FA /* CalibrationDialog.swift in Sources */,
 				D9983955F299A6F7F10DA1CC /* CalibrationManager.swift in Sources */,
 				C24D6157E112557555DC1045 /* CalibrationStore.swift in Sources */,
 				998F6F6724438441938C0A8A /* LaunchAtLogin.swift in Sources */,
 				BE60F7FB8C9C63ED2DFC9C30 /* LoginItemMenu.swift in Sources */,
 				9641EFBEDD15DC5605154440 /* MeasurementEngine.swift in Sources */,
+				2F45669F35C7279CF89254E1 /* ModifierKey.swift in Sources */,
 				1A9962CFA7B8BB28B0F44B23 /* OverlayContentView.swift in Sources */,
 				689CF0F48034CFF6F143AAD8 /* OverlayWindowController.swift in Sources */,
 				FB8EA32BA4EE1ED5137B4E05 /* PreferencesView.swift in Sources */,
@@ -304,6 +308,8 @@
 				AB7472EF327EAEDFCCB6FA5B /* LoginItemMenu.swift in Sources */,
 				9ABD2F6FA2D1CCA49697DD92 /* LoginItemMenuTests.swift in Sources */,
 				E79196C1CD2140A6B0B9C233 /* MeasurementEngine.swift in Sources */,
+				1073C00828AB379E53117A42 /* ModifierKey.swift in Sources */,
+				49BE74774F538E9DECB7D42A /* ModifierKeyTests.swift in Sources */,
 				5485880D2F9019FC2561EDA3 /* RulerGeometry.swift in Sources */,
 				57EDFDECC42DFDA632FCD366 /* RulerGeometryTests.swift in Sources */,
 				2537395418877F0BEF1576E8 /* RulerRenderer.swift in Sources */,

@@ -233,7 +233,7 @@ final class RulerSessionTests: XCTestCase {
         XCTAssertFalse(session.isAngleMeasurement)
     }
 
-    func testAngleMeasurementCannotBeDraggedOrNudged() {
+    func testAngleMeasurementCannotBeMoved() {
         var session = rulerSession()
         session.click(at: CGPoint(x: 200, y: 300), on: screen)
         let before = session.points
@@ -434,9 +434,9 @@ final class RulerSessionTests: XCTestCase {
         XCTAssertEqual(session.points[0], CGPoint(x: 100, y: 100))
     }
 
-    // MARK: Nudge and clear
+    // MARK: Moving and clearing
 
-    func testNudgeMovesTheWholeRulerAndStopsAtTheEdge() {
+    func testMovingTheWholeRulerStopsAtTheEdge() {
         var session = rulerSession()
         session.translateRuler(by: CGVector(dx: 1, dy: 0))
         XCTAssertEqual(session.points, [CGPoint(x: 101, y: 100), CGPoint(x: 201, y: 100)])

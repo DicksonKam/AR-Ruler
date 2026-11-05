@@ -38,7 +38,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWindowDele
 
         if let button = statusItem?.button {
             button.image = NSImage(systemSymbolName: "ruler", accessibilityDescription: "AR Ruler")
-            button.toolTip = "AR Ruler - Hold \(AppSettings.shared.modifierKey.rawValue) and click two points to lay a ruler"
+        }
+
+        updateToolTip()
+        // The tooltip names the key, which can change in Preferences.
+        NotificationCenter.default.addObserver(
+            forName: UserDefaults.didChangeNotification, object: nil, queue: .main
+        ) { [weak self] _ in
+            self?.updateToolTip()
         }
 
         let menu = NSMenu()
@@ -63,6 +70,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWindowDele
         menu.autoenablesItems = false
         menu.delegate = self
         statusItem?.menu = menu
+    }
+
+    private func updateToolTip() {
+        statusItem?.button?.toolTip = "AR Ruler - Hold \(AppSettings.shared.modifierKey.rawValue) and click two points to lay a ruler"
     }
 
     func menuWillOpen(_ menu: NSMenu) {
