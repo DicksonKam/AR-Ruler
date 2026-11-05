@@ -105,6 +105,8 @@ final class OverlayWindowController {
         panel.backgroundColor = .clear
         panel.hasShadow = false
         panel.hidesOnDeactivate = false
+        // The app hides itself to give focus back after a dialog, and the ruler has to stay up through that.
+        panel.canHide = false
         panel.isReleasedWhenClosed = false
         panel.ignoresMouseEvents = !modifierHeld
         panel.acceptsMouseMovedEvents = true
@@ -261,7 +263,8 @@ final class OverlayWindowController {
             escapeMonitors.append(global)
         }
         if let local = NSEvent.addLocalMonitorForEvents(matching: .keyDown, handler: { [weak self] event in
-            if isEscape(event) { self?.clear() }
+            // In a dialog, Esc belongs to the dialog. Calibrating needs the ruler to still be there afterwards.
+            if isEscape(event), NSApp.modalWindow == nil { self?.clear() }
             return event
         }) {
             escapeMonitors.append(local)

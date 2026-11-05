@@ -5,9 +5,15 @@ struct ARRulerApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
     var body: some Scene {
+        // SwiftUI needs a scene, but its own settings window would duplicate Preferences, so nothing opens this one.
         Settings {
-            PreferencesView()
-                .environmentObject(AppSettings.shared)
+            EmptyView()
+        }
+        .commands {
+            CommandGroup(replacing: .appSettings) {
+                Button("Preferences\u{2026}") { appDelegate.showPreferences() }
+                    .keyboardShortcut(",")
+            }
         }
     }
 }

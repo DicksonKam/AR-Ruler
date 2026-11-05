@@ -26,9 +26,14 @@ struct PreferencesView: View {
                 Text("Tip: Press Esc to clear the measurement, or hold the key above and right-click.")
                     .font(.caption)
                     .foregroundColor(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+                Text("Can't see the ruler icon in the menu bar? Open AR Ruler again from Applications or Spotlight to get back here.")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
             }
         }
-        .padding()
-        .frame(width: 400, height: 200)
+        .formStyle(.grouped)
+        .frame(width: 420, height: 330)
     }
 }

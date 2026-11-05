@@ -31,6 +31,13 @@ Pins stay with the spot they marked on screen, so their readings update if you t
 - **Angle measurements can't be fine-tuned.** Clear and click again to redo one.
 - **One screen at a time.** Clicks on another screen are ignored until the measurement is cleared or has its 4 points.
 
+## Menu bar app
+
+AR Ruler lives only in the menu bar, with no Dock icon or Cmd-Tab entry. Its ruler icon's menu has Clear Measurement, calibration, Launch at Login, Preferences and Quit.
+
+- **Launch at Login** is off until you turn it on. The checkmark shows what macOS has on record, including changes made in **System Settings > General > Login Items**. If macOS wants your approval there, the menu item says so and opens the page.
+- **If the icon is hidden**, as macOS can do in a crowded menu bar, open AR Ruler again from Applications or Spotlight. That opens Preferences, and Cmd-Q quits from there.
+
 ## Calibration
 
 By default the scale comes from the physical size the display reports, or 72 points per inch if it reports none. Some displays report it wrongly. To correct it for a display:
