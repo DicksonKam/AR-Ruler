@@ -24,3 +24,27 @@ targets:
         LD_RUNPATH_SEARCH_PATHS:
           - "$(inherited)"
           - "@executable_path/../Frameworks"
+  AR-RulerTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - path: AR-RulerTests
+      # Compiled straight into the test bundle, so tests run without launching the app and its overlay.
+      - path: AR-Ruler/Core
+      - path: AR-Ruler/Measurement/MeasurementEngine.swift
+      - path: AR-Ruler/Overlay/RulerRenderer.swift
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: true
+        PRODUCT_BUNDLE_IDENTIFIER: com.arruler.tests
+schemes:
+  AR-Ruler:
+    build:
+      targets:
+        AR-Ruler: all
+    run:
+      config: Debug
+    test:
+      config: Debug
+      targets:
+        - AR-RulerTests

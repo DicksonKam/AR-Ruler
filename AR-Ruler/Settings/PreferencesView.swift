@@ -19,11 +19,11 @@ struct PreferencesView: View {
                         Text(key.rawValue).tag(key)
                     }
                 }
-                .help("Hold this key and click to add measurement points")
+                .help("Hold this key and click to lay the ruler, pin readings and add angle points")
             }
 
             Section {
-                Text("Tip: Press Esc to clear current measurement. Right-click to reset.")
+                Text("Tip: Press Esc to clear the measurement, or hold the key above and right-click.")
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
