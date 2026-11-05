@@ -1,0 +1,375 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0B0E8BE04EF02DB4AFCA2A9F /* ARRulerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B07A9BB11ED1B38DADE750C /* ARRulerApp.swift */; };
+		1A9962CFA7B8BB28B0F44B23 /* OverlayContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F4CE6DB034D941333FE5FB /* OverlayContentView.swift */; };
+		22B228A30C07C90E54AC5695 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58224611104856A05D9657C1 /* AppDelegate.swift */; };
+		3E17581CE6FE8579314E64BD /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F702D180EF03DF9459D7108 /* AppSettings.swift */; };
+		689CF0F48034CFF6F143AAD8 /* OverlayWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE603A26BBBB7055802CDBB0 /* OverlayWindowController.swift */; };
+		9641EFBEDD15DC5605154440 /* MeasurementEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD3611D5C4522CBE00EE5A1 /* MeasurementEngine.swift */; };
+		C7E89267D2D58F02F972A3E2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EAC20B8105057E3522796A61 /* Assets.xcassets */; };
+		D9983955F299A6F7F10DA1CC /* CalibrationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384A4D32837CFFBA05A7DA56 /* CalibrationManager.swift */; };
+		ECA783DDC42BA7B54ECFD536 /* ScreenHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A493CD0266483996745C1049 /* ScreenHelper.swift */; };
+		FB8EA32BA4EE1ED5137B4E05 /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB561881F4799336D7497D1A /* PreferencesView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0F702D180EF03DF9459D7108 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
+		384A4D32837CFFBA05A7DA56 /* CalibrationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalibrationManager.swift; sourceTree = "<group>"; };
+		58224611104856A05D9657C1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		75F4CE6DB034D941333FE5FB /* OverlayContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayContentView.swift; sourceTree = "<group>"; };
+		7E6F662310AAC7E70CD9F6DF /* AR-Ruler.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AR-Ruler.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		93967955968DB8FAC5CD0DD4 /* ARRuler.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ARRuler.entitlements; sourceTree = "<group>"; };
+		9B07A9BB11ED1B38DADE750C /* ARRulerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARRulerApp.swift; sourceTree = "<group>"; };
+		A493CD0266483996745C1049 /* ScreenHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenHelper.swift; sourceTree = "<group>"; };
+		BFD3611D5C4522CBE00EE5A1 /* MeasurementEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementEngine.swift; sourceTree = "<group>"; };
+		CE603A26BBBB7055802CDBB0 /* OverlayWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayWindowController.swift; sourceTree = "<group>"; };
+		E337205EE1A3E70E34151E7C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		EAC20B8105057E3522796A61 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		EB561881F4799336D7497D1A /* PreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		129F4E048EED58CC474A5AA4 = {
+			isa = PBXGroup;
+			children = (
+				24BC2781EBAC7A6C54EC5237 /* AR-Ruler */,
+				A870BC0B4DE17826C71CBFFB /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		24BC2781EBAC7A6C54EC5237 /* AR-Ruler */ = {
+			isa = PBXGroup;
+			children = (
+				F83DF3976C5CF2B1CB816764 /* App */,
+				C44F09C2C3F72A922704EF86 /* Measurement */,
+				9EF26C4153C69F7A120D8B10 /* Overlay */,
+				62649FF174B73F1B2E8B7C72 /* Resources */,
+				9F4BDB285578F4280A13A955 /* Settings */,
+			);
+			path = "AR-Ruler";
+			sourceTree = "<group>";
+		};
+		62649FF174B73F1B2E8B7C72 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				93967955968DB8FAC5CD0DD4 /* ARRuler.entitlements */,
+				EAC20B8105057E3522796A61 /* Assets.xcassets */,
+				E337205EE1A3E70E34151E7C /* Info.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		9EF26C4153C69F7A120D8B10 /* Overlay */ = {
+			isa = PBXGroup;
+			children = (
+				75F4CE6DB034D941333FE5FB /* OverlayContentView.swift */,
+				CE603A26BBBB7055802CDBB0 /* OverlayWindowController.swift */,
+			);
+			path = Overlay;
+			sourceTree = "<group>";
+		};
+		9F4BDB285578F4280A13A955 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				0F702D180EF03DF9459D7108 /* AppSettings.swift */,
+				EB561881F4799336D7497D1A /* PreferencesView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		A870BC0B4DE17826C71CBFFB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7E6F662310AAC7E70CD9F6DF /* AR-Ruler.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C44F09C2C3F72A922704EF86 /* Measurement */ = {
+			isa = PBXGroup;
+			children = (
+				384A4D32837CFFBA05A7DA56 /* CalibrationManager.swift */,
+				BFD3611D5C4522CBE00EE5A1 /* MeasurementEngine.swift */,
+				A493CD0266483996745C1049 /* ScreenHelper.swift */,
+			);
+			path = Measurement;
+			sourceTree = "<group>";
+		};
+		F83DF3976C5CF2B1CB816764 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				58224611104856A05D9657C1 /* AppDelegate.swift */,
+				9B07A9BB11ED1B38DADE750C /* ARRulerApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0D5EEAD762E6DBCDD37C46CE /* AR-Ruler */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F2BBE67DDE1F7AEB0BE2AE53 /* Build configuration list for PBXNativeTarget "AR-Ruler" */;
+			buildPhases = (
+				35919F14EBCB65E98435A78F /* Sources */,
+				6F5FEE36AB0B003714A17796 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "AR-Ruler";
+			packageProductDependencies = (
+			);
+			productName = "AR-Ruler";
+			productReference = 7E6F662310AAC7E70CD9F6DF /* AR-Ruler.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		71B4664C7AC8C0EE0586EEB4 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1500;
+			};
+			buildConfigurationList = 54A50B1CA16C9E7DE19C3E65 /* Build configuration list for PBXProject "AR-Ruler" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 129F4E048EED58CC474A5AA4;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0D5EEAD762E6DBCDD37C46CE /* AR-Ruler */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		6F5FEE36AB0B003714A17796 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C7E89267D2D58F02F972A3E2 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		35919F14EBCB65E98435A78F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0B0E8BE04EF02DB4AFCA2A9F /* ARRulerApp.swift in Sources */,
+				22B228A30C07C90E54AC5695 /* AppDelegate.swift in Sources */,
+				3E17581CE6FE8579314E64BD /* AppSettings.swift in Sources */,
+				D9983955F299A6F7F10DA1CC /* CalibrationManager.swift in Sources */,
+				9641EFBEDD15DC5605154440 /* MeasurementEngine.swift in Sources */,
+				1A9962CFA7B8BB28B0F44B23 /* OverlayContentView.swift in Sources */,
+				689CF0F48034CFF6F143AAD8 /* OverlayWindowController.swift in Sources */,
+				FB8EA32BA4EE1ED5137B4E05 /* PreferencesView.swift in Sources */,
+				ECA783DDC42BA7B54ECFD536 /* ScreenHelper.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		3B60E075DDE4140D43A35C72 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.arruler.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		4B8461513F5FB17533B41DCF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "AR-Ruler/Resources/ARRuler.entitlements";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "AR-Ruler/Resources/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		5A609CC853F41CE5D8C6AE2B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "AR-Ruler/Resources/ARRuler.entitlements";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "AR-Ruler/Resources/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		81D564228F6BB0F41E2678C5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.arruler.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		54A50B1CA16C9E7DE19C3E65 /* Build configuration list for PBXProject "AR-Ruler" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3B60E075DDE4140D43A35C72 /* Debug */,
+				81D564228F6BB0F41E2678C5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		F2BBE67DDE1F7AEB0BE2AE53 /* Build configuration list for PBXNativeTarget "AR-Ruler" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4B8461513F5FB17533B41DCF /* Debug */,
+				5A609CC853F41CE5D8C6AE2B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 71B4664C7AC8C0EE0586EEB4 /* Project object */;
+}

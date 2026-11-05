@@ -1,0 +1,7 @@
+.DS_Store
+.venv/
+.icon_inspect/
+build/
+DerivedData/
+xcuserdata/
+*.xcuserstate
