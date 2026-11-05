@@ -1,0 +1,7 @@
+# An angle measurement across a bracket's corners. Points are from the top-left of the main display (1920x1080).
+clear
+hold
+click 1218,261
+click 1554,408
+click 1205,724
+release

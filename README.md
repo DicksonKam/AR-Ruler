@@ -107,6 +107,35 @@ To look at the rendering, save it to PNGs over light, dark and busy backgrounds:
 TEST_RUNNER_ARRULER_SNAPSHOT_DIR=/path/to/existing/folder xcodebuild -project AR-Ruler.xcodeproj -scheme AR-Ruler test
 ```
 
+### Virtual input (Debug builds only)
+
+Debug builds can be driven by a script, for testing and screenshots without physical keys. Scripted input goes through the same entry point as real keys and mouse (`OverlayInput`), so it runs the same logic and drawing.
+
+```bash
+build/Build/Products/Debug/AR-Ruler.app/Contents/MacOS/AR-Ruler --input-script scripts/virtual-input/demo-ruler.txt
+```
+
+The app stays running afterwards, with the result on screen. Rewriting the file runs it again, and each run's log goes to `<script>.log`. A script with any bad line doesn't run at all, and the log lists every problem. Real keys and mouse are ignored for that launch, so they can't disturb a capture, unless a script says `physical on`.
+
+| Command | What it does |
+| --- | --- |
+| `hold` | Holds the keys set in Preferences. `hold control`, `hold control option` and so on hold specific ones instead, replacing what was held. |
+| `release` | Lets go of the held keys. |
+| `shift on`, `shift off` | Holds or lets go of Shift. |
+| `move x y` | Moves the pointer. |
+| `click x y` | Clicks. Without the keys held it passes through, as a real click would. |
+| `drag x1 y1 x2 y2` | Drags in 8 steps. |
+| `rightclick x y` | Right-clicks, which clears if the keys are held. |
+| `esc`, `clear` | Clears the measurement. |
+| `wait s` | Waits this many seconds. |
+| `physical on`, `physical off` | Turns real keys and mouse on or off. |
+
+Points are in screen points from the top-left of the main display, the same as a screenshot, and can be written `x y` or `x,y`. `#` starts a comment.
+
+**What this does and doesn't prove:** it proves the app's logic and drawing. It doesn't prove that macOS delivers real key and mouse events to the app, so a person holding the keys and clicking is still the only test of that. It also creates no system events, and needs no permission or entitlement.
+
+**It isn't in Release builds.** All of it, including reading the argument, is compiled only for Debug. To check, run `scripts/check-release-has-no-virtual-input.sh`, which builds both configurations and searches the binaries.
+
 ## Known limits
 
 - **Only tested on macOS 27.** The deployment target is macOS 13, but it hasn't been run on anything older.

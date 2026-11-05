@@ -14,17 +14,21 @@
 		0B0E8BE04EF02DB4AFCA2A9F /* ARRulerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B07A9BB11ED1B38DADE750C /* ARRulerApp.swift */; };
 		0B5D19C526C2EF6709DD9F47 /* AngleLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4455EA2D6F35BC790F078F /* AngleLayout.swift */; };
 		1073C00828AB379E53117A42 /* ModifierKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B492B8CE598526E52222C76 /* ModifierKey.swift */; };
+		14846206744BCB09A61A7886 /* VirtualInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3F214B19E682E78CB31145 /* VirtualInput.swift */; };
 		1A24236A6846F827C1204A8B /* AngleLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F73787D6D4DB61BEAD5853 /* AngleLayoutTests.swift */; };
 		1A9962CFA7B8BB28B0F44B23 /* OverlayContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F4CE6DB034D941333FE5FB /* OverlayContentView.swift */; };
 		22B228A30C07C90E54AC5695 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58224611104856A05D9657C1 /* AppDelegate.swift */; };
 		2537395418877F0BEF1576E8 /* RulerRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDFB0D885CE16805A661101 /* RulerRenderer.swift */; };
 		2D5674B5887EA0D12EA2A780 /* RulerSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2003CEBE9E58588E5F168DFC /* RulerSession.swift */; };
 		2F45669F35C7279CF89254E1 /* ModifierKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B492B8CE598526E52222C76 /* ModifierKey.swift */; };
+		38BFA952C8C15D0B81E1B857 /* OverlayInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0366018EA6371739E8EA02 /* OverlayInput.swift */; };
 		3E17581CE6FE8579314E64BD /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F702D180EF03DF9459D7108 /* AppSettings.swift */; };
 		49BE74774F538E9DECB7D42A /* ModifierKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DC605F03B46E5D6F109B79E /* ModifierKeyTests.swift */; };
 		5485880D2F9019FC2561EDA3 /* RulerGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B3C39CB2FF9D7B49527FE3C /* RulerGeometry.swift */; };
 		57EDFDECC42DFDA632FCD366 /* RulerGeometryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFDAFA3CBDD6B1B1FF1ECAA /* RulerGeometryTests.swift */; };
+		5CCD668F9970B6577E4F9987 /* VirtualInputLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F2555A998CBCABD63852DD3 /* VirtualInputLauncher.swift */; };
 		689CF0F48034CFF6F143AAD8 /* OverlayWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE603A26BBBB7055802CDBB0 /* OverlayWindowController.swift */; };
+		72BDEAE1D0B113FE625B04BF /* VirtualInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3F214B19E682E78CB31145 /* VirtualInput.swift */; };
 		78AE235C9543B774E20F3507 /* RulerSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2003CEBE9E58588E5F168DFC /* RulerSession.swift */; };
 		828C62B69CDE7196DF4F477A /* AngleLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4455EA2D6F35BC790F078F /* AngleLayout.swift */; };
 		9641EFBEDD15DC5605154440 /* MeasurementEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD3611D5C4522CBE00EE5A1 /* MeasurementEngine.swift */; };
@@ -39,12 +43,14 @@
 		C24D6157E112557555DC1045 /* CalibrationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B27A5CBF24EBACF0099EEF /* CalibrationStore.swift */; };
 		C7E89267D2D58F02F972A3E2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EAC20B8105057E3522796A61 /* Assets.xcassets */; };
 		CF26211D5D295B51DE628CBA /* CalibrationStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5BD3665633A4FBB91A3F7C1 /* CalibrationStoreTests.swift */; };
+		D58911CB220820397442F39E /* OverlayInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0366018EA6371739E8EA02 /* OverlayInput.swift */; };
 		D9983955F299A6F7F10DA1CC /* CalibrationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384A4D32837CFFBA05A7DA56 /* CalibrationManager.swift */; };
 		E5BFB3762FF08437D1B5087D /* PreferencesMigrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6352CE0EAAFBB803DFBF56DE /* PreferencesMigrationTests.swift */; };
 		E79196C1CD2140A6B0B9C233 /* MeasurementEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD3611D5C4522CBE00EE5A1 /* MeasurementEngine.swift */; };
 		ECA783DDC42BA7B54ECFD536 /* ScreenHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A493CD0266483996745C1049 /* ScreenHelper.swift */; };
 		ED356970041BC41BEE789390 /* RulerRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDFB0D885CE16805A661101 /* RulerRenderer.swift */; };
 		F3B5E4F584223B74681FAD27 /* RulerGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B3C39CB2FF9D7B49527FE3C /* RulerGeometry.swift */; };
+		F9094E5DDE27D82A1D40A507 /* VirtualInputTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2EC81CDB07C2E3E1ACD418 /* VirtualInputTests.swift */; };
 		FA78075F36B0F0301A8B9DDF /* RulerScale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1820F763ADF9763B1BF8DD74 /* RulerScale.swift */; };
 		FB8EA32BA4EE1ED5137B4E05 /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB561881F4799336D7497D1A /* PreferencesView.swift */; };
 /* End PBXBuildFile section */
@@ -54,6 +60,7 @@
 		0F702D180EF03DF9459D7108 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		1820F763ADF9763B1BF8DD74 /* RulerScale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulerScale.swift; sourceTree = "<group>"; };
 		2003CEBE9E58588E5F168DFC /* RulerSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulerSession.swift; sourceTree = "<group>"; };
+		2B0366018EA6371739E8EA02 /* OverlayInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayInput.swift; sourceTree = "<group>"; };
 		384A4D32837CFFBA05A7DA56 /* CalibrationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalibrationManager.swift; sourceTree = "<group>"; };
 		3E4455EA2D6F35BC790F078F /* AngleLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AngleLayout.swift; sourceTree = "<group>"; };
 		3E88107241CD8A321D7F8A29 /* RulerSessionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulerSessionTests.swift; sourceTree = "<group>"; };
@@ -62,6 +69,7 @@
 		6352CE0EAAFBB803DFBF56DE /* PreferencesMigrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesMigrationTests.swift; sourceTree = "<group>"; };
 		66A604BA244C79BDDDDD03EF /* RulerRenderingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulerRenderingTests.swift; sourceTree = "<group>"; };
 		6DC605F03B46E5D6F109B79E /* ModifierKeyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifierKeyTests.swift; sourceTree = "<group>"; };
+		6F2555A998CBCABD63852DD3 /* VirtualInputLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualInputLauncher.swift; sourceTree = "<group>"; };
 		6FC77327FB1738E36A2381AA /* LoginItemMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginItemMenu.swift; sourceTree = "<group>"; };
 		75F4CE6DB034D941333FE5FB /* OverlayContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayContentView.swift; sourceTree = "<group>"; };
 		7CFDAFA3CBDD6B1B1FF1ECAA /* RulerGeometryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulerGeometryTests.swift; sourceTree = "<group>"; };
@@ -81,9 +89,11 @@
 		BFD3611D5C4522CBE00EE5A1 /* MeasurementEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementEngine.swift; sourceTree = "<group>"; };
 		C8F73787D6D4DB61BEAD5853 /* AngleLayoutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AngleLayoutTests.swift; sourceTree = "<group>"; };
 		CE603A26BBBB7055802CDBB0 /* OverlayWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayWindowController.swift; sourceTree = "<group>"; };
+		DB3F214B19E682E78CB31145 /* VirtualInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualInput.swift; sourceTree = "<group>"; };
 		E337205EE1A3E70E34151E7C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		EAC20B8105057E3522796A61 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EB561881F4799336D7497D1A /* PreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesView.swift; sourceTree = "<group>"; };
+		ED2EC81CDB07C2E3E1ACD418 /* VirtualInputTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualInputTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -126,10 +136,12 @@
 				45B27A5CBF24EBACF0099EEF /* CalibrationStore.swift */,
 				6FC77327FB1738E36A2381AA /* LoginItemMenu.swift */,
 				8B492B8CE598526E52222C76 /* ModifierKey.swift */,
+				2B0366018EA6371739E8EA02 /* OverlayInput.swift */,
 				A83715FD926F68E1FCBBDAF8 /* PreferencesMigration.swift */,
 				8B3C39CB2FF9D7B49527FE3C /* RulerGeometry.swift */,
 				1820F763ADF9763B1BF8DD74 /* RulerScale.swift */,
 				2003CEBE9E58588E5F168DFC /* RulerSession.swift */,
+				DB3F214B19E682E78CB31145 /* VirtualInput.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -146,6 +158,7 @@
 				66A604BA244C79BDDDDD03EF /* RulerRenderingTests.swift */,
 				89934CCA6CEBD47BC9BC1D1C /* RulerScaleTests.swift */,
 				3E88107241CD8A321D7F8A29 /* RulerSessionTests.swift */,
+				ED2EC81CDB07C2E3E1ACD418 /* VirtualInputTests.swift */,
 			);
 			path = "AR-RulerTests";
 			sourceTree = "<group>";
@@ -156,6 +169,7 @@
 				75F4CE6DB034D941333FE5FB /* OverlayContentView.swift */,
 				CE603A26BBBB7055802CDBB0 /* OverlayWindowController.swift */,
 				9CDFB0D885CE16805A661101 /* RulerRenderer.swift */,
+				6F2555A998CBCABD63852DD3 /* VirtualInputLauncher.swift */,
 			);
 			path = Overlay;
 			sourceTree = "<group>";
@@ -294,6 +308,7 @@
 				9641EFBEDD15DC5605154440 /* MeasurementEngine.swift in Sources */,
 				2F45669F35C7279CF89254E1 /* ModifierKey.swift in Sources */,
 				1A9962CFA7B8BB28B0F44B23 /* OverlayContentView.swift in Sources */,
+				38BFA952C8C15D0B81E1B857 /* OverlayInput.swift in Sources */,
 				689CF0F48034CFF6F143AAD8 /* OverlayWindowController.swift in Sources */,
 				0AA01663D3A65410A3E39377 /* PreferencesMigration.swift in Sources */,
 				FB8EA32BA4EE1ED5137B4E05 /* PreferencesView.swift in Sources */,
@@ -302,6 +317,8 @@
 				FA78075F36B0F0301A8B9DDF /* RulerScale.swift in Sources */,
 				2D5674B5887EA0D12EA2A780 /* RulerSession.swift in Sources */,
 				ECA783DDC42BA7B54ECFD536 /* ScreenHelper.swift in Sources */,
+				72BDEAE1D0B113FE625B04BF /* VirtualInput.swift in Sources */,
+				5CCD668F9970B6577E4F9987 /* VirtualInputLauncher.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -318,6 +335,7 @@
 				E79196C1CD2140A6B0B9C233 /* MeasurementEngine.swift in Sources */,
 				1073C00828AB379E53117A42 /* ModifierKey.swift in Sources */,
 				49BE74774F538E9DECB7D42A /* ModifierKeyTests.swift in Sources */,
+				D58911CB220820397442F39E /* OverlayInput.swift in Sources */,
 				00BD13DEB2837E2D890DFF77 /* PreferencesMigration.swift in Sources */,
 				E5BFB3762FF08437D1B5087D /* PreferencesMigrationTests.swift in Sources */,
 				5485880D2F9019FC2561EDA3 /* RulerGeometry.swift in Sources */,
@@ -328,6 +346,8 @@
 				A7C9EC52F70ADAB66E97766B /* RulerScaleTests.swift in Sources */,
 				78AE235C9543B774E20F3507 /* RulerSession.swift in Sources */,
 				BDEAF3D5F4E604C94B192FDA /* RulerSessionTests.swift in Sources */,
+				14846206744BCB09A61A7886 /* VirtualInput.swift in Sources */,
+				F9094E5DDE27D82A1D40A507 /* VirtualInputTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

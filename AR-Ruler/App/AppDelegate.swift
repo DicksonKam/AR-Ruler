@@ -5,6 +5,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWindowDele
     private var statusItem: NSStatusItem?
     private var overlayController: OverlayWindowController?
     private var preferencesWindow: NSWindow?
+    #if DEBUG
+    private var virtualInput: VirtualInputLauncher?
+    #endif
     private let clearItem = NSMenuItem(title: "Clear Measurement", action: #selector(clearMeasurement), keyEquivalent: "")
     private let scaleItem = NSMenuItem(title: "", action: nil, keyEquivalent: "")
     private let calibrateItem = NSMenuItem(title: "Calibrate This Display\u{2026}", action: #selector(calibrateDisplay), keyEquivalent: "")
@@ -18,6 +21,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWindowDele
         overlayController = OverlayWindowController()
         overlayController?.showOverlay()
         setupMenuBar()
+        #if DEBUG
+        if let overlayController {
+            virtualInput = VirtualInputLauncher(target: overlayController)
+        }
+        #endif
     }
 
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {

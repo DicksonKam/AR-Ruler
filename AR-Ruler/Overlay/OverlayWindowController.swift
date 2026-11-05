@@ -15,10 +15,10 @@ final class OverlayWindowController {
 
     private var overlays: [Overlay] = []
     private var isShown = false
-    private var session = RulerSession()
-    private var pointer: CGPoint?
-    private var modifierHeld = false
-    private var shiftHeld = false
+    private var state = OverlayInputState()
+    #if DEBUG
+    private var physicalInputEnabled = true
+    #endif
     private var registeredObservers: [NSObjectProtocol] = []
     private var modifierMonitors: [Any] = []
     private var escapeMonitors: [Any] = []
@@ -72,8 +72,8 @@ final class OverlayWindowController {
         overlays = NSScreen.screens.map(makeOverlay)
 
         // A measurement is only meaningful on the screen it was made on, at the same geometry.
-        if let bounds = session.bounds, !overlays.contains(where: { $0.screen.frame == bounds }) {
-            session.clear()
+        if let bounds = state.session.bounds, !overlays.contains(where: { $0.screen.frame == bounds }) {
+            state.session.clear()
         }
         sessionChanged()
     }
@@ -98,7 +98,7 @@ final class OverlayWindowController {
         // The app hides itself to give focus back after a dialog, and the ruler has to stay up through that.
         panel.canHide = false
         panel.isReleasedWhenClosed = false
-        panel.ignoresMouseEvents = !modifierHeld
+        panel.ignoresMouseEvents = !state.capturesClicks
         panel.acceptsMouseMovedEvents = true
         panel.contentView = view
         panel.setFrame(frame, display: false)
@@ -107,14 +107,14 @@ final class OverlayWindowController {
             guard let self, let screen else { return nil }
             return self.scene(for: screen)
         }
-        view.onPress = { [weak self, weak view] location, event in
+        view.onPress = { [weak self, weak view] location, _ in
             guard let self, let overlay = self.overlays.first(where: { $0.view === view }) else { return }
-            self.pressed(at: location, event: event, on: overlay)
+            self.receivePhysical(self.pressInput(at: location, on: overlay.screen))
         }
-        view.onDrag = { [weak self] location, event in self?.dragged(to: location, event: event) }
-        view.onRelease = { [weak self] location, event in self?.released(at: location, event: event) }
-        view.onMove = { [weak self] location, event in self?.pointerMoved(to: location, flags: event.modifierFlags) }
-        view.onClear = { [weak self] in self?.clear() }
+        view.onDrag = { [weak self] location, event in self?.receivePhysical(.drag(location, event.modifierFlags)) }
+        view.onRelease = { [weak self] location, event in self?.receivePhysical(.release(location, event.modifierFlags)) }
+        view.onMove = { [weak self] location, _ in self?.receivePhysical(.pointerMoved(location)) }
+        view.onClear = { [weak self] in self?.receivePhysical(.clear) }
 
         panel.orderFrontRegardless()
         return Overlay(panel: panel, view: view, screen: screen)
@@ -122,13 +122,13 @@ final class OverlayWindowController {
 
     private func scene(for screen: NSScreen) -> RulerScene {
         RulerScene(
-            session: session,
+            session: state.session,
             scale: RulerScale(unit: unit, pointsPerCm: CalibrationManager.shared.pointsPerCm(for: screen)),
             screenFrame: screen.frame,
             backingScale: screen.backingScaleFactor,
-            pointer: pointer,
-            modifierHeld: modifierHeld,
-            shiftHeld: shiftHeld
+            pointer: state.pointer,
+            modifierHeld: state.modifierHeld,
+            shiftHeld: state.shiftHeld
         )
     }
 
@@ -136,18 +136,17 @@ final class OverlayWindowController {
 
     /// The screen a calibration or reset applies to: where the ruler is, otherwise where the pointer is.
     var targetScreen: NSScreen? {
-        if let bounds = session.bounds, let screen = NSScreen.screens.first(where: { $0.frame == bounds }) {
+        if let bounds = state.session.bounds, let screen = NSScreen.screens.first(where: { $0.frame == bounds }) {
             return screen
         }
         return ScreenHelper.screenContaining(point: NSEvent.mouseLocation) ?? NSScreen.main
     }
 
-    var rulerLengthPoints: CGFloat? { session.rulerLength }
-    var hasMeasurement: Bool { !session.isEmpty }
+    var rulerLengthPoints: CGFloat? { state.session.rulerLength }
+    var hasMeasurement: Bool { !state.session.isEmpty }
 
     func clear() {
-        session.clear()
-        sessionChanged()
+        receive(.clear)
     }
 
     func redrawAll() {
@@ -155,53 +154,57 @@ final class OverlayWindowController {
         overlays.forEach { $0.view.needsDisplay = true }
     }
 
+    private func pointsPerUnit(on screen: NSScreen) -> CGFloat {
+        RulerScale(unit: unit, pointsPerCm: CalibrationManager.shared.pointsPerCm(for: screen)).pointsPerUnit
+    }
+
     /// The ruler's fitted length is in whole units, so it follows a change of unit or calibration.
     private func syncRulerScale() {
-        guard let overlay = overlays.first(where: { $0.screen.frame == session.bounds }) else { return }
-        session.pointsPerUnit = RulerScale(unit: unit, pointsPerCm: CalibrationManager.shared.pointsPerCm(for: overlay.screen)).pointsPerUnit
+        guard let overlay = overlays.first(where: { $0.screen.frame == state.session.bounds }) else { return }
+        state.session.pointsPerUnit = pointsPerUnit(on: overlay.screen)
     }
 
-    // MARK: Mouse
-
-    private func snapping(_ flags: NSEvent.ModifierFlags) -> Bool {
-        flags.intersection(.deviceIndependentFlagsMask).contains(.shift)
+    private func pressInput(at location: CGPoint, on screen: NSScreen) -> OverlayInput {
+        .press(location, frame: screen.frame, pointsPerUnit: pointsPerUnit(on: screen))
     }
 
-    private func pressed(at location: CGPoint, event: NSEvent, on overlay: Overlay) {
-        session.pointsPerUnit = RulerScale(unit: unit, pointsPerCm: CalibrationManager.shared.pointsPerCm(for: overlay.screen)).pointsPerUnit
-        session.pressBegan(at: location, on: overlay.screen.frame)
-        pointer = location
+    // MARK: Input
+
+    /// Real keys and mouse come in here.
+    private func receivePhysical(_ input: OverlayInput) {
+        #if DEBUG
+        guard physicalInputEnabled else { return }
+        #endif
+        receive(input)
     }
 
-    private func dragged(to location: CGPoint, event: NSEvent) {
-        pointer = location
-        shiftHeld = snapping(event.modifierFlags)
-        session.pressMoved(to: location, snapping: shiftHeld)
-        redrawAll()
-    }
+    /// The one entry point. All input, whatever its source, changes the state and redraws from here.
+    private func receive(_ input: OverlayInput) {
+        state.modifierKey = settings.modifierKey
+        let session = state.session
+        let overlay = overlays.first { $0.screen.frame == session.bounds }
+        // Worked out against the old state, to clear where the live reading was.
+        let liveBefore = overlay.map { RulerRenderer.liveBounds(for: scene(for: $0.screen)) }
+        let hoverBefore = state.pointer.flatMap { session.hitTest($0) }
 
-    private func released(at location: CGPoint, event: NSEvent) {
-        pointer = location
-        session.pressEnded(snapping: snapping(event.modifierFlags))
-        // The modifier may have been let go during the press; capture was held open until now.
+        let effect = state.apply(input)
+
         applyCaptureState()
-        sessionChanged()
-    }
-
-    private func pointerMoved(to location: CGPoint, flags: NSEvent.ModifierFlags) {
-        guard !session.isEmpty, let overlay = overlays.first(where: { $0.screen.frame == session.bounds }) else {
-            pointer = location
-            return
-        }
-        let before = RulerRenderer.liveBounds(for: scene(for: overlay.screen))
-        let hoverBefore = pointer.flatMap { session.hitTest($0) }
-        pointer = location
-        let after = RulerRenderer.liveBounds(for: scene(for: overlay.screen))
-        let hoverAfter = session.hitTest(location)
-        if hoverBefore != hoverAfter, modifierHeld {
-            overlay.view.needsDisplay = true
-        } else {
-            overlay.view.invalidate(globalRect: before.union(after))
+        switch effect {
+        case .nothing:
+            break
+        case .pointerOnly:
+            guard let overlay, let liveBefore, !session.isEmpty else { return }
+            let hoverAfter = state.pointer.flatMap { state.session.hitTest($0) }
+            if hoverBefore != hoverAfter, state.modifierHeld {
+                overlay.view.needsDisplay = true
+            } else {
+                overlay.view.invalidate(globalRect: liveBefore.union(RulerRenderer.liveBounds(for: scene(for: overlay.screen))))
+            }
+        case .everything:
+            redrawAll()
+        case .sessionChanged:
+            sessionChanged()
         }
     }
 
@@ -209,7 +212,7 @@ final class OverlayWindowController {
 
     private func setupModifierMonitors() {
         let handle: (NSEvent) -> Void = { [weak self] event in
-            self?.modifiersChanged(event.modifierFlags)
+            self?.receivePhysical(.modifiers(event.modifierFlags, pointer: NSEvent.mouseLocation))
         }
         if let local = NSEvent.addLocalMonitorForEvents(matching: .flagsChanged, handler: { event in
             handle(event)
@@ -222,39 +225,21 @@ final class OverlayWindowController {
         }
     }
 
-    private func modifiersChanged(_ flags: NSEvent.ModifierFlags) {
-        let relevant = flags.intersection(.deviceIndependentFlagsMask)
-        let held = settings.modifierKey.isHeld(in: relevant)
-        let shift = relevant.contains(.shift)
-        let changed = held != modifierHeld || shift != shiftHeld
-        modifierHeld = held
-        shiftHeld = shift
-        applyCaptureState()
-        guard changed else { return }
-        pointer = NSEvent.mouseLocation
-        if session.isDragging {
-            session.pressMoved(to: NSEvent.mouseLocation, snapping: shift)
-        }
-        redrawAll()
-    }
-
-    /// Clicks only reach the overlay while the modifier is held. A press in progress keeps it, so its release isn't lost.
     private func applyCaptureState() {
-        let capture = modifierHeld || session.isPressed
-        overlays.forEach { $0.panel.ignoresMouseEvents = !capture }
+        overlays.forEach { $0.panel.ignoresMouseEvents = !state.capturesClicks }
     }
 
     private func setupEscapeMonitors() {
         let isEscape: (NSEvent) -> Bool = { $0.keyCode == 53 }
         // Global covers other apps being frontmost; local covers AR Ruler's own windows.
         if let global = NSEvent.addGlobalMonitorForEvents(matching: .keyDown, handler: { [weak self] event in
-            if isEscape(event) { self?.clear() }
+            if isEscape(event) { self?.receivePhysical(.clear) }
         }) {
             escapeMonitors.append(global)
         }
         if let local = NSEvent.addLocalMonitorForEvents(matching: .keyDown, handler: { [weak self] event in
             // In a dialog, Esc belongs to the dialog. Calibrating needs the ruler to still be there afterwards.
-            if isEscape(event), NSApp.modalWindow == nil { self?.clear() }
+            if isEscape(event), NSApp.modalWindow == nil { self?.receivePhysical(.clear) }
             return event
         }) {
             escapeMonitors.append(local)
@@ -263,7 +248,7 @@ final class OverlayWindowController {
 
     /// Everything that exists only while something is on screen starts and stops here.
     private func sessionChanged() {
-        if session.isEmpty {
+        if state.session.isEmpty {
             if let monitor = pointerMonitor {
                 NSEvent.removeMonitor(monitor)
                 pointerMonitor = nil
@@ -271,8 +256,8 @@ final class OverlayWindowController {
         } else if pointerMonitor == nil {
             pointerMonitor = NSEvent.addGlobalMonitorForEvents(
                 matching: [.mouseMoved, .leftMouseDragged, .rightMouseDragged, .otherMouseDragged]
-            ) { [weak self] event in
-                self?.pointerMoved(to: NSEvent.mouseLocation, flags: event.modifierFlags)
+            ) { [weak self] _ in
+                self?.receivePhysical(.pointerMoved(NSEvent.mouseLocation))
             }
         }
 
@@ -290,3 +275,34 @@ final class OverlayWindowController {
         }
     }
 }
+
+#if DEBUG
+extension OverlayWindowController: VirtualInputTarget {
+    /// Reads the panels themselves, so a scripted click meets the same gate as a real one.
+    var capturesClicks: Bool { overlays.contains { !$0.panel.ignoresMouseEvents } }
+    var configuredModifier: ModifierKey { settings.modifierKey }
+    var mainDisplayHeight: CGFloat { NSScreen.screens.first?.frame.height ?? 0 }
+
+    var summary: String {
+        let session = state.session
+        return "points=\(session.points.count) pins=\(session.pins.count) ruler=\(session.hasRuler) angles=\(session.angles.count) held=\(state.modifierHeld) capturing=\(capturesClicks)"
+    }
+
+    func screen(at point: CGPoint) -> (frame: CGRect, pointsPerUnit: CGFloat)? {
+        // Closed on every side, because the pointer on a screen's top row reports exactly maxY.
+        let match = overlays.first {
+            let frame = $0.screen.frame
+            return point.x >= frame.minX && point.x <= frame.maxX && point.y >= frame.minY && point.y <= frame.maxY
+        }
+        return match.map { ($0.screen.frame, pointsPerUnit(on: $0.screen)) }
+    }
+
+    func send(_ input: OverlayInput) {
+        receive(input)
+    }
+
+    func setPhysicalInputEnabled(_ enabled: Bool) {
+        physicalInputEnabled = enabled
+    }
+}
+#endif

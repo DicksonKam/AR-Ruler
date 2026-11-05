@@ -1,0 +1,11 @@
+# A ruler with pins and a live reading. Points are from the top-left of the main display (1920x1080).
+clear
+hold
+click 232,700
+click 967,489
+click 355,665
+click 527,616
+click 620,590
+click 833,527
+release
+move 727,558
